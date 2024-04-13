@@ -103,4 +103,12 @@ $koi['description'] = "";
             $(this).children(".navbar-dropdown").toggleClass("is-active");
         });
     });
+
+    document.getElementById('mode').addEventListener('click', function () {
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    });
 </script>
