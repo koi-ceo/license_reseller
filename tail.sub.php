@@ -6,13 +6,13 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
 <footer class="footer">
     <div class="content">
         <p>
-            <strong>회사 이름</strong>
+            <strong>코이</strong>
         </p>
         <p>
             연락처: 000-0000-0000
         </p>
         <p>
-            이메일: example@example.com
+            이메일: info.koicorp@gmail.com
         </p>
     </div>
     <div class="content">
@@ -39,7 +39,7 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
     </div>
     <div class="content has-text-centered">
         <p>
-            Copyright © 2023 Your Company. All rights reserved.
+            Copyright © 2024 KOI. All rights reserved.
         </p>
     </div>
 </footer>

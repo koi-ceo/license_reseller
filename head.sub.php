@@ -88,8 +88,11 @@ $koi['description'] = "";
             </div>
         </div>
     </div>
-    <button id="mode">Switch Mode</button>
 </nav>
+
+<div id="mode-container">
+    <button id="light_mode">Switch Mode</button>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
@@ -104,7 +107,7 @@ $koi['description'] = "";
         });
     });
 
-    document.getElementById('mode').addEventListener('click', function () {
+    document.getElementById('light_mode').addEventListener('click', function () {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
             document.documentElement.setAttribute('data-theme', 'light');
         } else {

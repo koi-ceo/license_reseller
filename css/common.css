@@ -1,0 +1,9 @@
+#mode-container {
+    position: relative;
+}
+
+#light_mode {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+}
