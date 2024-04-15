@@ -1,9 +1,49 @@
+@charset "UTF-8";
+
 #mode-container {
     position: relative;
 }
 
-#light_mode {
+/*#light_mode {*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    right: 20px;*/
+/*}*/
+
+.nav-themes {
+    position: relative;
+}
+
+.swiper-slide img {
+    height: auto;
+    width: 100%;
+}
+
+.swiper-container {
+    position: relative;
+}
+
+.swiper-button-next, .swiper-button-prev, .swiper-pagination {
     position: absolute;
-    bottom: 0;
-    right: 20px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    top: 50%; /* 버튼을 수직 중앙에 위치시킵니다. */
+    width: 50px; /* 버튼의 크기를 조정합니다. 필요에 따라 변경할 수 있습니다. */
+    height: 50px; /* 버튼의 크기를 조정합니다. 필요에 따라 변경할 수 있습니다. */
+    margin-top: -25px; /* 버튼의 크기의 절반만큼 위로 이동하여, 버튼이 정확히 중앙에 오도록 합니다. */
+}
+
+.swiper-button-next {
+    right: 10px; /* 오른쪽 버튼을 오른쪽 끝으로 이동시킵니다. */
+}
+
+.swiper-button-prev {
+    left: 10px; /* 왼쪽 버튼을 왼쪽 끝으로 이동시킵니다. */
+}
+
+.swiper-pagination {
+    bottom: 10px; /* 페이징네이션을 하단에 위치시킵니다. */
+    width: 100%; /* 페이징네이션의 너비를 슬라이드의 너비와 같게 합니다. */
+    text-align: center; /* 페이징네이션 내의 요소들을 중앙 정렬합니다. */
 }

@@ -75,6 +75,21 @@ $koi['description'] = "";
             </div>
         </div>
 
+        <?php // 테마 light, dark 모드, main.js에 있음. 해당 기능 사용 안하려면 아래 script란에 light_mode로 선언하고 커스텀하면 됨?>
+        <div class="bd-nav-themes">
+            <button id="js-cycle" class="bd-cycle js-burger is-moon" data-target="js-themes">
+                <div class="bd-cycles">
+                    <div class="bd-cycle-sun"><span class="icon"><i class="fas fa-lg fa-sun" aria-hidden="true"></i></span></div>
+                    <div class="bd-cycle-moon"><span class="icon"><i class="fas fa-lg fa-moon" aria-hidden="true"></i></span></div>
+                </div>
+            </button>
+
+            <div id="js-themes" class="bd-nav-menu is-cycles js-menu js-themes">
+                <button data-scheme="light" class="bd-nav-item is-sun" aria-label="Light mode"><span class="icon"><i class="fas fa-sun" aria-hidden="true"></i></span><span>Light</span></button>
+                <button data-scheme="dark" class="bd-nav-item is-moon is-active" aria-label="Dark mode"><span class="icon"><i class="fas fa-moon" aria-hidden="true"></i></span><span>Dark</span></button>
+            </div>
+        </div>
+
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
@@ -90,10 +105,7 @@ $koi['description'] = "";
     </div>
 </nav>
 
-<div id="mode-container">
-    <button id="light_mode">Switch Mode</button>
-</div>
-
+<script src="js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -107,11 +119,11 @@ $koi['description'] = "";
         });
     });
 
-    document.getElementById('light_mode').addEventListener('click', function () {
-        if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'light');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    });
+    // document.getElementById('light_mode').addEventListener('click', function () {
+    //     if (document.documentElement.getAttribute('data-theme') === 'dark') {
+    //         document.documentElement.setAttribute('data-theme', 'light');
+    //     } else {
+    //         document.documentElement.setAttribute('data-theme', 'dark');
+    //     }
+    // });
 </script>
