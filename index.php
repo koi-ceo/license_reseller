@@ -161,7 +161,6 @@ include_once "./head.php";
                 </div>
             </div>
         </div>
-        </div>
     </section>
 
     <script>

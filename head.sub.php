@@ -12,7 +12,7 @@ $koi_head_title = strip_tags("코이");
 $koi['description'] = "";
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
