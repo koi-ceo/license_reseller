@@ -34,9 +34,11 @@ include_once "./head.php";
                                 </div>
                                 <div class="column is-5 featured-content va">
                                     <div>
-                                        <h3 class="heading post-category">Category Name</h3>
-                                        <h2 class="title post-title">Blog Posts Template</h2>
-                                        <p class="post-excerpt">This template is based off of the official default blog template created by the fine folks over at <a href="https://ghost.io">Ghost</a>. If you are looking for a fully featured blog platform, I highly recommend checking them out!</p>
+                                        <h3 class="heading post-category">Jetbrains</h3>
+                                        <h2 class="title post-title">JetBrains IDEs</h2>
+                                        <p class="post-excerpt">팀 규모를 막론하고 JetBrains 제품은 코드 빌드, 업무 계획 또는 공동 작업을 위한 원활하고 즐거운 경험을 항상 보장합니다.</p>
+                                        <p class="post-excerpt mt-2">작업에 사용되는 플랫폼과 언어가 무엇이든, JetBrains는 그에 맞는 개발 도구를 보유하고 있습니다.</p>
+                                        <p class="post-excerpt mt-2">JetBrains IDE에서 로컬로 실행되는 AI 기반의 전체 줄 코드 완성을 경험해 보세요.</p>
                                         <br>
                                         <a href="#" class="button is-primary">Read More</a>
                                     </div>
@@ -59,9 +61,10 @@ include_once "./head.php";
                             <article class="columns featured">
                                 <div class="column is-5 featured-content va">
                                     <div>
-                                        <h3 class="heading post-category">Category Name</h3>
-                                        <h2 class="title post-title">Blog Posts Template</h2>
-                                        <p class="post-excerpt">This template is based off of the official default blog template created by the fine folks over at <a href="https://ghost.io">Ghost</a>. If you are looking for a fully featured blog platform, I highly recommend checking them out!</p>
+                                        <h3 class="heading post-category">Adobe</h3>
+                                        <h2 class="title post-title">Adobe Creative Cloud</h2>
+                                        <p class="post-excerpt">크리에이터를 위한 생성형 AI의 새로운 시대</p>
+                                        <p class="post-excerpt mt-2">Photoshop, Illustrator, Adobe Express, Firefly 웹 앱에서 강력한 새로운 생성형 AI를 만나보세요. </p>
                                         <br>
                                         <a href="#" class="button is-primary">Read More</a>
                                     </div>
@@ -84,9 +87,8 @@ include_once "./head.php";
 
     <section class="section">
         <div class="container has-text-centered">
-            <h2 class="title">Tools</h2>
+            <h2 class="title">Jetbrains Tools</h2>
             <!--            <p>summary</p>-->
-
             <div class="columns is-centered" style="padding: 2rem">
                 <div class="column">
                     <div class="card">
@@ -98,13 +100,13 @@ include_once "./head.php";
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4">Intellij IDEA</p>
+                                    <p class="title is-4 mb-2">Intellij IDEA</p>
                                     <p class="subtitle is-6">JAVA 및 Kotlin 개발자를 위한 IDE</p>
                                 </div>
                             </div>
 
                             <div class="content">
-<!--                                SUMMARY-->
+                                <!--                                SUMMARY-->
                                 <a href="#">#JAVA</a>
                                 <a href="#">#Kotlin</a>
                                 <a href="#">#Spring</a>
@@ -122,7 +124,7 @@ include_once "./head.php";
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4">PyCharm</p>
+                                    <p class="title is-4 mb-2">PyCharm</p>
                                     <p class="subtitle is-6">python 개발자와 데이터 과학자를 위한 IDE</p>
                                 </div>
                             </div>
@@ -139,22 +141,145 @@ include_once "./head.php";
                     <div class="card">
                         <div class="card-image">
                             <figure class="image is-2by1">
-                                <img src="https://images.pexels.com/photos/167635/pexels-photo-167635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Placeholder image">
+                                <img src="/img/pycharm.jpg" alt="Pycharm image">
                             </figure>
                         </div>
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4">John Smith</p>
-                                    <p class="subtitle is-6">@johnsmith</p>
+                                    <p class="title is-4 mb-2">PyCharm</p>
+                                    <p class="subtitle is-6">python 개발자와 데이터 과학자를 위한 IDE</p>
                                 </div>
                             </div>
 
                             <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                                <a>@bulmaio</a>.
-                                <a href="#">#css</a>
-                                <a href="#">#responsive</a>
+                                <a href="#">#Python</a>
+                                <a href="#">#Django</a>
+                                <a href="#">#Jupyter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="/img/pycharm.jpg" alt="Pycharm image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4 mb-2">PyCharm</p>
+                                    <p class="subtitle is-6">python 개발자와 데이터 과학자를 위한 IDE</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <a href="#">#Python</a>
+                                <a href="#">#Django</a>
+                                <a href="#">#Jupyter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container has-text-centered">
+            <h2 class="title">Adobe Tools</h2>
+            <!--            <p>summary</p>-->
+            <div class="columns is-centered" style="padding: 2rem">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="/img/intellij_idea.jpg" alt="Intellij IDEA image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4 mb-2">Intellij IDEA</p>
+                                    <p class="subtitle is-6">JAVA 및 Kotlin 개발자를 위한 IDE</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <!--                                SUMMARY-->
+                                <a href="#">#JAVA</a>
+                                <a href="#">#Kotlin</a>
+                                <a href="#">#Spring</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="/img/pycharm.jpg" alt="Pycharm image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4 mb-2">PyCharm</p>
+                                    <p class="subtitle is-6">python 개발자와 데이터 과학자를 위한 IDE</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <a href="#">#Python</a>
+                                <a href="#">#Django</a>
+                                <a href="#">#Jupyter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="/img/pycharm.jpg" alt="Pycharm image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4 mb-2">PyCharm</p>
+                                    <p class="subtitle is-6">python 개발자와 데이터 과학자를 위한 IDE</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <a href="#">#Python</a>
+                                <a href="#">#Django</a>
+                                <a href="#">#Jupyter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="/img/pycharm.jpg" alt="Pycharm image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4 mb-2">PyCharm</p>
+                                    <p class="subtitle is-6">python 개발자와 데이터 과학자를 위한 IDE</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <a href="#">#Python</a>
+                                <a href="#">#Django</a>
+                                <a href="#">#Jupyter</a>
                             </div>
                         </div>
                     </div>
