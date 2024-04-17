@@ -45,16 +45,30 @@ $koi['description'] = "";
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item">
-                <span class="icon-text"><span class="icon"><i class="fas fa-home"></i></span><span>Home</span></span>
-            </a>
-
-            <a class="navbar-item">
                 회사소개
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    More
+                    <img src="/img/jetbrains_icon.png"><span class="pl-2">Jetbrins</span>
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item"> IntelliJ IDEA </a>
+                    <a class="navbar-item"> PyCharm </a>
+                    <a class="navbar-item"> WebStorm </a>
+                    <a class="navbar-item"> PhpStorm </a>
+                    <a class="navbar-item"> ReSharper </a>
+                    <a class="navbar-item"> DataGrip </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">Youtrack</a>
+                    <a class="navbar-item">TeamCity</a>
+                    <a class="navbar-item">Upsource</a>
+                </div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    <img src="/img/adobe_icon.png"><span class="pl-2">Adobe</span>
                 </a>
 
                 <div class="navbar-dropdown">
@@ -66,6 +80,21 @@ $koi['description'] = "";
                     </a>
                     <a class="navbar-item">
                         Contact
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                        Report an issue
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    <img src="/img/microsoft_icon.png"><span class="pl-2">Microsoft</span>
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        About
                     </a>
                     <hr class="navbar-divider">
                     <a class="navbar-item">
@@ -94,10 +123,10 @@ $koi['description'] = "";
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary">
-                        <strong>Sign up</strong>
+                        <strong>회원가입</strong>
                     </a>
                     <a class="button is-light">
-                        Log in
+                        <strong>로그인</strong>
                     </a>
                 </div>
             </div>
