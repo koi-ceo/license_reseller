@@ -47,3 +47,7 @@
     width: 100%; /* 페이징네이션의 너비를 슬라이드의 너비와 같게 합니다. */
     text-align: center; /* 페이징네이션 내의 요소들을 중앙 정렬합니다. */
 }
+
+.koi-background {
+    background-color: #2E333D !important;
+}
