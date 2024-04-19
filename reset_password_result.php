@@ -21,7 +21,7 @@ include_once "./head.php";
                     </div>
                 </div>
                 <p class="has-text-grey has-text-centered">
-                    <a href="login.php">돌아가기</a>
+                    <a href="./login.php">돌아가기</a>
                 </p>
             </div>
         </div>

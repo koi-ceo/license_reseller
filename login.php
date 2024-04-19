@@ -39,8 +39,8 @@ include_once "./head.php";
                     </form>
                 </div>
                 <p class="has-text-grey has-text-centered">
-                    <a href="register.php"">회원가입</a> &nbsp;·&nbsp;
-                    <a href="reset_password.php">비밀번호 재설정</a>
+                    <a href="./register.php"">회원가입</a> &nbsp;·&nbsp;
+                    <a href="./reset_password.php">비밀번호 재설정</a>
                 </p>
             </div>
         </div>
