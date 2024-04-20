@@ -19,26 +19,26 @@ include_once('./_head.sub.php');
                         <div class="field">
                             <label class="label has-text-white">이메일</label>
                             <div class="control">
-                                <input class="input is-medium" type="email" autofocus="" name="mb_email">
+                                <input class="input is-medium" type="email" autofocus="" name="mb_email" required="required">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label has-text-white">비밀번호</label>
                             <div class="control">
-                                <input class="input is-medium" type="password" name="mb_password">
+                                <input class="input is-medium" type="password" name="mb_password" required="required">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label has-text-white">비밀번호 확인</label>
                             <div class="control">
-                                <input class="input is-medium" type="password" name="mb_password_re">
+                                <input class="input is-medium" type="password" name="mb_password_re" required="required">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label has-text-white">휴대폰</label>
                             <div class="control">
-                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp">
+                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">
                             </div>
                         </div>
                         <button class="button is-block is-info is-large is-fullwidth">회원가입 <i class="fa fa-user-plus" aria-hidden="true"></i></button>
@@ -59,4 +59,6 @@ include_once('./_head.sub.php');
         value = value.replace(pattern, '');
         $(this).val(value);
     });
+
+
 </script>
