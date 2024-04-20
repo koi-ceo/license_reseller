@@ -5,8 +5,8 @@
  * Date: 2024-04-18
  */
 
-include_once "_common.php";
-include_once "./head.php";
+include_once('./_common.php');
+include_once('./_head.sub.php');
 ?>
 <section class="hero is-fullheight">
     <div class="hero-body">
@@ -17,26 +17,26 @@ include_once "./head.php";
                 <div class="box koi-background">
                     <form>
                         <div class="field">
-                            <label class="label">이메일</label>
+                            <label class="label has-text-white">이메일</label>
                             <div class="control">
                                 <input class="input is-medium" type="email" autofocus="">
                             </div>
                         </div>
 
                         <div class="field">
-                            <label class="label">비밀번호</label>
+                            <label class="label has-text-white">비밀번호</label>
                             <div class="control">
                                 <input class="input is-medium" type="password">
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">비밀번호 확인</label>
+                            <label class="label has-text-white">비밀번호 확인</label>
                             <div class="control">
                                 <input class="input is-medium" type="password">
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">휴대폰</label>
+                            <label class="label has-text-white">휴대폰</label>
                             <div class="control">
                                 <input class="input is-medium" type="text" placeholder="">
                             </div>
@@ -45,7 +45,7 @@ include_once "./head.php";
                     </form>
                 </div>
                 <p class="has-text-grey has-text-centered">
-                    <a href="./login.php">돌아가기</a>
+                    <a href="login.php">돌아가기</a>
                 </p>
             </div>
         </div>

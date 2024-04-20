@@ -5,8 +5,8 @@
  * Date: 2024-04-18
  */
 
-include_once "_common.php";
-include_once "./head.php";
+include_once('./_common.php');
+include_once('./_head.sub.php');
 ?>
 <section class="hero is-fullheight">
     <div class="hero-body">
@@ -17,20 +17,20 @@ include_once "./head.php";
                 <div class="box koi-background">
                     <form>
                         <div class="field">
-                            <label class="label">이메일</label>
+                            <label class="label has-text-white">이메일</label>
                             <div class="control">
                                 <input class="input is-medium" type="email" autofocus="">
                             </div>
                         </div>
 
                         <div class="field">
-                            <label class="label">비밀번호</label>
+                            <label class="label has-text-white">비밀번호</label>
                             <div class="control">
                                 <input class="input is-medium" type="password">
                             </div>
                         </div>
                         <div class="field">
-                            <label class="checkbox">
+                            <label class="checkbox has-text-white">
                                 <input type="checkbox">
                                 자동로그인
                             </label>
@@ -39,8 +39,8 @@ include_once "./head.php";
                     </form>
                 </div>
                 <p class="has-text-grey has-text-centered">
-                    <a href="./register.php"">회원가입</a> &nbsp;·&nbsp;
-                    <a href="./reset_password.php">비밀번호 재설정</a>
+                    <a href="register.php"">회원가입</a> &nbsp;·&nbsp;
+                    <a href="reset_password.php">비밀번호 재설정</a>
                 </p>
             </div>
         </div>

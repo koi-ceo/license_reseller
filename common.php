@@ -5,8 +5,6 @@
  * Date: 2023-09-06
  */
 
-include_once "./config.php";
-
 error_reporting(E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING);
 
 error_reporting(E_ALL);
@@ -24,6 +22,40 @@ for ($i = 0; $i < $ext_cnt; $i++) {
     if (isset($_GET[$ext_arr[$i]])) unset($_GET[$ext_arr[$i]]);
     if (isset($_POST[$ext_arr[$i]])) unset($_POST[$ext_arr[$i]]);
 }
+
+$isSecure = false;
+// https 검사 추가 20201130 holic 로드밸런싱에서는 SERVER 변수로 확인 불가능한 이슈
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+    $isSecure = true;
+} else if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+    $isSecure = true;
+}
+
+function koi_path()
+{
+    $chroot = substr($_SERVER['SCRIPT_FILENAME'], 0, strpos($_SERVER['SCRIPT_FILENAME'], dirname(__FILE__)));
+    $result['path'] = str_replace('\\', '/', $chroot . dirname(__FILE__));
+    $server_script_name = preg_replace('/\/+/', '/', str_replace('\\', '/', $_SERVER['SCRIPT_NAME']));
+    $server_script_filename = preg_replace('/\/+/', '/', str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME']));
+    $tilde_remove = preg_replace('/^\/\~[^\/]+(.*)$/', '$1', $server_script_name);
+    $document_root = str_replace($tilde_remove, '', $server_script_filename);
+    $pattern = '/.*?' . preg_quote($document_root, '/') . '/i';
+    $root = preg_replace($pattern, '', $result['path']);
+    $port = ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) ? '' : ':' . $_SERVER['SERVER_PORT'];
+    $http = 'http' . ((isset($isSecure) && $isSecure) ? 's' : '') . '://';
+    $user = str_replace(preg_replace($pattern, '', $server_script_filename), '', $server_script_name);
+    $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'];
+    if (isset($_SERVER['HTTP_HOST']) && preg_match('/:[0-9]+$/', $host))
+        $host = preg_replace('/:[0-9]+$/', '', $host);
+    $host = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*]/", '', $host);
+    $result['url'] = $http . $host . $port . $user . $root;
+    return $result;
+}
+
+$koi_path = koi_path();
+
+include_once($koi_path['path'] . "/config.php");
+
 $_POST = array_map_deep(KOI_ESCAPE_FUNCTION, $_POST);
 $_GET = array_map_deep(KOI_ESCAPE_FUNCTION, $_GET);
 $_COOKIE = array_map_deep(KOI_ESCAPE_FUNCTION, $_COOKIE);
@@ -71,4 +103,6 @@ function array_map_deep($fn, $array)
     return $array;
 }
 
-include_once "./lib/common.lib.php";
+$member = array();
+
+include_once KOI_LIB_PATH . "/common.lib.php";

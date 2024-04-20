@@ -20,10 +20,10 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
             <!--                <a href="sitemap.html">사이트 맵</a>-->
             <!--            </p>-->
             <p>
-                <a href="./privacy.html">개인정보처리방침</a>
+                <a href="<?= KOI_URL ?>/privacy.html">개인정보처리방침</a>
             </p>
             <p>
-                <a href="./terms.html">이용약관</a>
+                <a href="<?= KOI_URL ?>/terms.html">이용약관</a>
             </p>
         </div>
         <!--        <div class="content column">-->
