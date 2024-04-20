@@ -105,4 +105,5 @@ function array_map_deep($fn, $array)
 
 $member = array();
 
-include_once KOI_LIB_PATH . "/common.lib.php";
+include_once(KOI_LIB_PATH . "/common.lib.php");
+include_once(KOI_LIB_PATH . '/hook.lib.php');    // hook 함수 파일

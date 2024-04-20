@@ -6,5 +6,10 @@
  */
 
 include_once('./_common.php');
-include_once('./_head.sub.php');
+
+if (!$mb_id || !$mb_password)
+    alert('회원아이디나 비밀번호가 공백이면 안됩니다.');
+
+$mb = get_member($mb_id);
+
 ?>

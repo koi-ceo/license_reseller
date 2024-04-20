@@ -7,12 +7,12 @@
 
 if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
 
-$koi['title'] = strip_tags("KOI");
-$koi_head_title = strip_tags("코이");
-$koi['description'] = "";
+$koi['title'] = $koi['title'] ?? strip_tags("KOI");
+$koi_head_title = $koi_head_title ?? strip_tags("코이");
+$koi['description'] = $koi['description'] ?? "";
 ?>
 <!DOCTYPE html>
-<html lang="kr">
+<html lang="ko">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -135,6 +135,9 @@ $koi['description'] = "";
     </div>
 </nav>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= KOI_JS_DIR ?>/sweetalert2function.js"></script>
 <script src="<?= KOI_JS_DIR ?>/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
