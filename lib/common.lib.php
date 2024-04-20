@@ -122,17 +122,14 @@ function sql_connect($host, $user, $pass, $db = KOI_MYSQL_DB)
 {
     global $koi;
 
-    if (function_exists('mysqli_connect') && KOI_MYSQLI_USE) {
+    if (function_exists('mysqli_connect')) {
         $link = mysqli_connect($host, $user, $pass, $db);
 
         // 연결 오류 발생 시 스크립트 종료
         if (mysqli_connect_errno()) {
             die('Connect Error: ' . mysqli_connect_error());
         }
-    } else {
-        $link = mysql_connect($host, $user, $pass);
     }
-
     return $link;
 }
 
@@ -142,10 +139,9 @@ function sql_select_db($db, $connect)
 {
     global $koi;
 
-    if (function_exists('mysqli_select_db') && KOI_MYSQLI_USE)
+    if (function_exists('mysqli_select_db'))
         return @mysqli_select_db($connect, $db);
-    else
-        return @mysql_select_db($db, $connect);
+
 }
 
 
@@ -156,25 +152,22 @@ function sql_set_charset($charset, $link = null)
     if (!$link)
         $link = $koi['connect_db'];
 
-    if (function_exists('mysqli_set_charset') && KOI_MYSQLI_USE)
+    if (function_exists('mysqli_set_charset'))
         mysqli_set_charset($link, $charset);
-    else
-        mysql_query(" set names {$charset} ", $link);
+
 }
 
 function sql_data_seek($result, $offset = 0)
 {
     if (!$result) return;
 
-    if (function_exists('mysqli_set_charset') && KOI_MYSQLI_USE)
+    if (function_exists('mysqli_set_charset'))
         mysqli_data_seek($result, $offset);
-    else
-        mysql_data_seek($result, $offset);
 }
 
 // mysqli_query 와 mysqli_error 를 한꺼번에 처리
 // mysql connect resource 지정 - 명랑폐인님 제안
-function sql_query($sql, $error = KOI_DISPLAY_SQL_ERROR, $link = null, $is_catch = false)
+function sql_query($sql, $error = false, $link = null, $is_catch = false)
 {
     global $koi, $koi_debug;
 
@@ -195,16 +188,7 @@ function sql_query($sql, $error = KOI_DISPLAY_SQL_ERROR, $link = null, $is_catch
 
     if (function_exists('mysqli_query')) {
         if ($error) {
-            $buy_process = get_session('buy_process');
-            if ($buy_process) {
-                $result = @mysqli_query($link, $sql);
-                $error_str = mysqli_error($link);
-                if (!$result) {
-                    order_fail($error_str);
-                }
-            } else {
-                $result = @mysqli_query($link, $sql) or die("<p>$sql<p>" . mysqli_errno($link) . " : " . mysqli_error($link) . "<p>error file : {$_SERVER['SCRIPT_NAME']}");
-            }
+            $result = @mysqli_query($link, $sql) or die("<p>$sql<p>" . mysqli_errno($link) . " : " . mysqli_error($link) . "<p>error file : {$_SERVER['SCRIPT_NAME']}");
         } else {
             $result = @mysqli_query($link, $sql);
             $error_str = @mysqli_error($link);
@@ -217,9 +201,9 @@ function sql_query($sql, $error = KOI_DISPLAY_SQL_ERROR, $link = null, $is_catch
         }
     } else {
         if ($error) {
-            $result = @mysql_query($sql, $link) or die("<p>$sql<p>" . mysql_errno() . " : " . mysql_error() . "<p>error file : {$_SERVER['SCRIPT_NAME']}");
+            $result = @sql_query($sql, $link) or die("<p>$sql<p>" . sql_error_info() . "<p>error file : {$_SERVER['SCRIPT_NAME']}");
         } else {
-            $result = @mysql_query($sql, $link);
+            $result = @sql_query($sql, $link);
         }
     }
 
@@ -256,8 +240,6 @@ function sql_fetch_array($result)
 {
     if (function_exists('mysqli_fetch_assoc'))
         $row = @mysqli_fetch_assoc($result);
-    else
-        $row = @mysql_fetch_assoc($result);
 
     return $row;
 }
@@ -268,10 +250,8 @@ function sql_fetch_array($result)
 // 단, 결과 값은 스크립트(script) 실행부가 종료되면서 메모리에서 자동적으로 지워진다.
 function sql_free_result($result)
 {
-    if (function_exists('mysqli_free_result') && KOI_MYSQLI_USE)
-        return mysqli_free_result($result);
-    else
-        return mysql_free_result($result);
+    if (function_exists('mysqli_free_result'))
+        mysqli_free_result($result);
 }
 
 
@@ -292,19 +272,15 @@ function sql_insert_id($link = null)
     if (!$link)
         $link = $koi['connect_db'];
 
-    if (function_exists('mysqli_insert_id') && KOI_MYSQLI_USE)
+    if (function_exists('mysqli_insert_id'))
         return mysqli_insert_id($link);
-    else
-        return mysql_insert_id($link);
 }
 
 
 function sql_num_rows($result)
 {
-    if (function_exists('mysqli_num_rows') && KOI_MYSQLI_USE)
+    if (function_exists('mysqli_num_rows'))
         return mysqli_num_rows($result);
-    else
-        return mysql_num_rows($result);
 }
 
 
@@ -320,17 +296,9 @@ function sql_field_names($table, $link = null)
     $sql = " select * from `$table` limit 1 ";
     $result = sql_query($sql, $link);
 
-    if (function_exists('mysqli_fetch_field') && KOI_MYSQLI_USE) {
+    if (function_exists('mysqli_fetch_field')) {
         while ($field = mysqli_fetch_field($result)) {
             $columns[] = $field->name;
-        }
-    } else {
-        $i = 0;
-        $cnt = mysql_num_fields($result);
-        while ($i < $cnt) {
-            $field = mysql_fetch_field($result, $i);
-            $columns[] = $field->name;
-            $i++;
         }
     }
 
@@ -345,10 +313,8 @@ function sql_error_info($link = null)
     if (!$link)
         $link = $koi['connect_db'];
 
-    if (function_exists('mysqli_error') && KOI_MYSQLI_USE) {
+    if (function_exists('mysqli_error')) {
         return mysqli_errno($link) . ' : ' . mysqli_error($link);
-    } else {
-        return mysql_errno($link) . ' : ' . mysql_error($link);
     }
 }
 
@@ -390,6 +356,180 @@ function clean_xss_tags($str, $check_entities = 0, $except = false)
     }
 
     return $str;
+}
+
+function get_microtime()
+{
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
+
+// 비밀번호 비교
+function check_password($pass, $hash)
+{
+    if (defined('KOI_STRING_ENCRYPT_FUNCTION') && KOI_STRING_ENCRYPT_FUNCTION === 'create_hash') {
+        return validate_password($pass, $hash);
+    }
+
+    $password = get_encrypt_string($pass);
+
+    return ($password === $hash);
+}
+
+function validate_password($password, $hash)
+{
+    // Split the hash into 4 parts.
+
+    $params = explode(':', $hash);
+    if (count($params) < 4) return false;
+
+    // Recalculate the hash and compare it with the original.
+
+    $pbkdf2 = base64_decode($params[3]);
+    $pbkdf2_check = pbkdf2_default($params[0], $password, $params[2], (int)$params[1], strlen($pbkdf2));
+    return slow_equals($pbkdf2, $pbkdf2_check);
+}
+
+function pbkdf2_default($algo, $password, $salt, $count, $key_length)
+{
+    // Sanity check.
+
+    if ($count <= 0 || $key_length <= 0) {
+        trigger_error('PBKDF2 ERROR: Invalid parameters.', E_USER_ERROR);
+    }
+
+    // Check if we should use the fallback function.
+
+    if (!$algo) return pbkdf2_fallback($password, $salt, $count, $key_length);
+
+    // Check if the selected algorithm is available.
+
+    $algo = strtolower($algo);
+    if (!function_exists('hash_algos') || !in_array($algo, hash_algos())) {
+        if ($algo === 'sha1') {
+            return pbkdf2_fallback($password, $salt, $count, $key_length);
+        } else {
+            trigger_error('PBKDF2 ERROR: Hash algorithm not supported.', E_USER_ERROR);
+        }
+    }
+}
+
+function slow_equals($a, $b)
+{
+    $diff = strlen($a) ^ strlen($b);
+    for ($i = 0; $i < strlen($a) && $i < strlen($b); $i++) {
+        $diff |= ord($a[$i]) ^ ord($b[$i]);
+    }
+    return $diff === 0;
+}
+
+function pbkdf2_fallback($password, $salt, $count, $key_length)
+{
+    // Count the blocks.
+
+    $hash_length = 20;
+    $block_count = ceil($key_length / $hash_length);
+
+    // Prepare the HMAC key and padding.
+
+    if (strlen($password) > 64) {
+        $password = str_pad(sha1($password, true), 64, chr(0));
+    } else {
+        $password = str_pad($password, 64, chr(0));
+    }
+
+    $opad = str_repeat(chr(0x5C), 64) ^ $password;
+    $ipad = str_repeat(chr(0x36), 64) ^ $password;
+
+    // Hash it!
+
+    $output = '';
+    for ($i = 1; $i <= $block_count; $i++) {
+        $last = $salt . pack('N', $i);
+        $xorsum = $last = pack('H*', sha1($opad . pack('H*', sha1($ipad . $last))));
+        for ($j = 1; $j < $count; $j++) {
+            $last = pack('H*', sha1($opad . pack('H*', sha1($ipad . $last))));
+            $xorsum ^= $last;
+        }
+        $output .= $xorsum;
+    }
+
+    // Truncate and return.
+
+    return substr($output, 0, $key_length);
+}
+
+function get_encrypt_string($str)
+{
+    if (defined('KOI_STRING_ENCRYPT_FUNCTION') && KOI_STRING_ENCRYPT_FUNCTION) {
+        $encrypt = call_user_func(KOI_STRING_ENCRYPT_FUNCTION, $str);
+    } else {
+        $encrypt = sql_password($str);
+    }
+
+    return $encrypt;
+}
+
+// 로그인 패스워드 체크
+function login_password_check($mb, $pass, $hash)
+{
+    global $g5;
+
+    $mb_id = isset($mb['mb_id']) ? $mb['mb_id'] : '';
+
+    if (!$mb_id)
+        return false;
+
+    if (KOI_STRING_ENCRYPT_FUNCTION === 'create_hash' && (strlen($hash) === 41 || strlen($hash) === 16)) {
+        if (sql_password($pass) === $hash) {
+
+            $new_password = create_hash($pass);
+            $sql = " update tbl_member set mb_password = '$new_password' where mb_id = '$mb_id' ";
+            sql_query($sql);
+            return true;
+        }
+    }
+
+    return check_password($pass, $hash);
+}
+
+function create_hash($password, $force_compat = false)
+{
+    // Generate the salt.
+
+    if (function_exists('mcrypt_create_iv') && version_compare(PHP_VERSION, '7.2', '<')) {
+        $salt = base64_encode(mcrypt_create_iv(PBKDF2_COMPAT_SALT_BYTES, MCRYPT_DEV_URANDOM));
+    } elseif (@file_exists('/dev/urandom') && $fp = @fopen('/dev/urandom', 'r')) {
+        $salt = base64_encode(fread($fp, PBKDF2_COMPAT_SALT_BYTES));
+    } else {
+        $salt = '';
+        for ($i = 0; $i < PBKDF2_COMPAT_SALT_BYTES; $i += 2) {
+            $salt .= pack('S', mt_rand(0, 65535));
+        }
+        $salt = base64_encode(substr($salt, 0, PBKDF2_COMPAT_SALT_BYTES));
+    }
+
+    // Determine the best supported algorithm and iteration count.
+
+    $algo = strtolower(PBKDF2_COMPAT_HASH_ALGORITHM);
+    $iterations = PBKDF2_COMPAT_ITERATIONS;
+    if ($force_compat || !function_exists('hash_algos') || !in_array($algo, hash_algos())) {
+        $algo = false;                         // This flag will be detected by pbkdf2_default()
+        $iterations = round($iterations / 5);  // PHP 4 is very slow. Don't cause too much server load.
+    }
+
+    // Return format: algorithm:iterations:salt:hash
+
+    $pbkdf2 = pbkdf2_default($algo, $password, $salt, $iterations, PBKDF2_COMPAT_HASH_BYTES);
+    $prefix = $algo ? $algo : 'sha1';
+    return $prefix . ':' . $iterations . ':' . $salt . ':' . base64_encode($pbkdf2);
+}
+
+// 휴대폰번호의 숫자만 취한 후 중간에 하이픈(-)을 넣는다.
+function hyphen_hp_number($hp)
+{
+    $hp = preg_replace("/[^0-9]/", "", $hp);
+    return preg_replace("/([0-9]{3})([0-9]{3,4})([0-9]{4})$/", "\\1-\\2-\\3", $hp);
 }
 
 ?>

@@ -107,3 +107,15 @@ $member = array();
 
 include_once(KOI_LIB_PATH . "/common.lib.php");
 include_once(KOI_LIB_PATH . '/hook.lib.php');    // hook 함수 파일
+
+include_once(KOI_DATA_PATH . '/' . KOI_DBCONFIG_FILE);
+
+$connect_db = sql_connect(KOI_MYSQL_HOST, KOI_MYSQL_USER, KOI_MYSQL_PASSWORD) or die('MySQL Connect Error!!!');
+$select_db = sql_select_db(KOI_MYSQL_DB, $connect_db) or die('MySQL DB Error!!!');
+
+// mysql connect resource $koi 배열에 저장
+$koi['connect_db'] = $connect_db;
+
+sql_set_charset('utf8', $connect_db);
+if (defined('KOI_MYSQL_SET_MODE') && KOI_MYSQL_SET_MODE) sql_query("SET SESSION sql_mode = ''");
+if (defined('KOI_TIMEZONE')) sql_query(" set time_zone = '" . KOI_TIMEZONE . "'");
