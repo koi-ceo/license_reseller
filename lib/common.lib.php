@@ -1,4 +1,7 @@
 <?php
+if (!defined('_KOI_')) exit;
+include_once(dirname(__FILE__) . '/pbkdf2.compat.php');
+
 function add_stylesheet($stylesheet, $order = 0)
 {
     global $html_process;
@@ -121,13 +124,11 @@ function sql_connect($host, $user, $pass, $db = KOI_MYSQL_DB)
 {
     global $koi;
 
-    if (function_exists('mysqli_connect')) {
-        $link = mysqli_connect($host, $user, $pass, $db);
+    $link = mysqli_connect($host, $user, $pass, $db);
 
-        // 연결 오류 발생 시 스크립트 종료
-        if (mysqli_connect_errno()) {
-            die('Connect Error: ' . mysqli_connect_error());
-        }
+    // 연결 오류 발생 시 스크립트 종료
+    if (mysqli_connect_errno()) {
+        die('Connect Error: ' . mysqli_connect_error());
     }
     return $link;
 }
@@ -140,7 +141,6 @@ function sql_select_db($db, $connect)
 
     if (function_exists('mysqli_select_db'))
         return @mysqli_select_db($connect, $db);
-
 }
 
 
@@ -357,106 +357,6 @@ function clean_xss_tags($str, $check_entities = 0, $except = false)
     return $str;
 }
 
-function get_microtime()
-{
-    list($usec, $sec) = explode(" ", microtime());
-    return ((float)$usec + (float)$sec);
-}
-
-// 비밀번호 비교
-function check_password($pass, $hash)
-{
-    if (defined('KOI_STRING_ENCRYPT_FUNCTION') && KOI_STRING_ENCRYPT_FUNCTION === 'create_hash') {
-        return validate_password($pass, $hash);
-    }
-
-    $password = get_encrypt_string($pass);
-    return ($password === $hash);
-}
-
-function validate_password($password, $hash)
-{
-    // Split the hash into 4 parts.
-
-    $params = explode(':', $hash);
-    if (count($params) < 4) return false;
-
-    // Recalculate the hash and compare it with the original.
-
-    $pbkdf2 = base64_decode($params[3]);
-    $pbkdf2_check = pbkdf2_default($params[0], $password, $params[2], (int)$params[1], strlen($pbkdf2));
-    return slow_equals($pbkdf2, $pbkdf2_check);
-}
-
-function pbkdf2_default($algo, $password, $salt, $count, $key_length)
-{
-    // Sanity check.
-
-    if ($count <= 0 || $key_length <= 0) {
-        trigger_error('PBKDF2 ERROR: Invalid parameters.', E_USER_ERROR);
-    }
-
-    // Check if we should use the fallback function.
-
-    if (!$algo) return pbkdf2_fallback($password, $salt, $count, $key_length);
-
-    // Check if the selected algorithm is available.
-
-    $algo = strtolower($algo);
-    if (!function_exists('hash_algos') || !in_array($algo, hash_algos())) {
-        if ($algo === 'sha1') {
-            return pbkdf2_fallback($password, $salt, $count, $key_length);
-        } else {
-            trigger_error('PBKDF2 ERROR: Hash algorithm not supported.', E_USER_ERROR);
-        }
-    }
-}
-
-function slow_equals($a, $b)
-{
-    $diff = strlen($a) ^ strlen($b);
-    for ($i = 0; $i < strlen($a) && $i < strlen($b); $i++) {
-        $diff |= ord($a[$i]) ^ ord($b[$i]);
-    }
-    return $diff === 0;
-}
-
-function pbkdf2_fallback($password, $salt, $count, $key_length)
-{
-    // Count the blocks.
-
-    $hash_length = 20;
-    $block_count = ceil($key_length / $hash_length);
-
-    // Prepare the HMAC key and padding.
-
-    if (strlen($password) > 64) {
-        $password = str_pad(sha1($password, true), 64, chr(0));
-    } else {
-        $password = str_pad($password, 64, chr(0));
-    }
-
-    $opad = str_repeat(chr(0x5C), 64) ^ $password;
-    $ipad = str_repeat(chr(0x36), 64) ^ $password;
-
-    // Hash it!
-
-    $output = '';
-    for ($i = 1; $i <= $block_count; $i++) {
-        $last = $salt . pack('N', $i);
-        $xorsum = $last = pack('H*', sha1($opad . pack('H*', sha1($ipad . $last))));
-        for ($j = 1; $j < $count; $j++) {
-            $last = pack('H*', sha1($opad . pack('H*', sha1($ipad . $last))));
-            $xorsum ^= $last;
-        }
-        $output .= $xorsum;
-    }
-
-    // Truncate and return.
-
-    return substr($output, 0, $key_length);
-}
-
 function get_encrypt_string($str)
 {
     if (defined('KOI_STRING_ENCRYPT_FUNCTION') && KOI_STRING_ENCRYPT_FUNCTION) {
@@ -471,56 +371,38 @@ function get_encrypt_string($str)
 // 로그인 패스워드 체크
 function login_password_check($mb, $pass, $hash)
 {
-    global $g5;
+    global $koi;
 
-    $mb_id = isset($mb['mb_id']) ? $mb['mb_id'] : '';
+    $mb_id = isset($mb['mb_email']) ? $mb['mb_email'] : '';
 
     if (!$mb_id)
         return false;
 
-    if (KOI_STRING_ENCRYPT_FUNCTION === 'create_hash' && (strlen($hash) === 41 || strlen($hash) === 16)) {
+    if (KOI_STRING_ENCRYPT_FUNCTION === 'create_hash' && (strlen($hash) === KOI_MYSQL_PASSWORD_LENGTH || strlen($hash) === 16)) {
         if (sql_password($pass) === $hash) {
+            if (!isset($mb['mb_password2'])) {
+                $sql = "ALTER TABLE tbl_member ADD `mb_password2` VARCHAR(255) NOT NULL default '' AFTER `mb_password`";
+                sql_query($sql);
+            }
 
             $new_password = create_hash($pass);
-            $sql = " update tbl_member set mb_password = '$new_password' where mb_id = '$mb_id' ";
+            $sql = " update tbl_member set mb_password = '$new_password', mb_password2 = '$hash' where mb_email = '$mb_id' ";
             sql_query($sql);
             return true;
         }
     }
-
     return check_password($pass, $hash);
 }
 
-function create_hash($password, $force_compat = false)
+function check_password($pass, $hash)
 {
-    // Generate the salt.
-
-    if (function_exists('mcrypt_create_iv') && version_compare(PHP_VERSION, '7.2', '<')) {
-        $salt = base64_encode(mcrypt_create_iv(PBKDF2_COMPAT_SALT_BYTES, MCRYPT_DEV_URANDOM));
-    } elseif (@file_exists('/dev/urandom') && $fp = @fopen('/dev/urandom', 'r')) {
-        $salt = base64_encode(fread($fp, PBKDF2_COMPAT_SALT_BYTES));
-    } else {
-        $salt = '';
-        for ($i = 0; $i < PBKDF2_COMPAT_SALT_BYTES; $i += 2) {
-            $salt .= pack('S', mt_rand(0, 65535));
-        }
-        $salt = base64_encode(substr($salt, 0, PBKDF2_COMPAT_SALT_BYTES));
+    if (defined('KOI_STRING_ENCRYPT_FUNCTION') && KOI_STRING_ENCRYPT_FUNCTION === 'create_hash') {
+        return validate_password($pass, $hash);
     }
 
-    // Determine the best supported algorithm and iteration count.
+    $password = get_encrypt_string($pass);
 
-    $algo = strtolower(PBKDF2_COMPAT_HASH_ALGORITHM);
-    $iterations = PBKDF2_COMPAT_ITERATIONS;
-    if ($force_compat || !function_exists('hash_algos') || !in_array($algo, hash_algos())) {
-        $algo = false;                         // This flag will be detected by pbkdf2_default()
-        $iterations = round($iterations / 5);  // PHP 4 is very slow. Don't cause too much server load.
-    }
-
-    // Return format: algorithm:iterations:salt:hash
-
-    $pbkdf2 = pbkdf2_default($algo, $password, $salt, $iterations, PBKDF2_COMPAT_HASH_BYTES);
-    $prefix = $algo ? $algo : 'sha1';
-    return $prefix . ':' . $iterations . ':' . $salt . ':' . base64_encode($pbkdf2);
+    return ($password === $hash);
 }
 
 // 휴대폰번호의 숫자만 취한 후 중간에 하이픈(-)을 넣는다.
@@ -636,4 +518,21 @@ function get_real_client_ip()
     return preg_replace('/[^0-9.]/', '', $real_ip);
 }
 
+function goto_url($url)
+{
+    $url = str_replace("&amp;", "&", $url);
+    //echo "<script> location.replace('$url'); </script>";
+
+    if (!headers_sent())
+        header('Location: ' . $url);
+    else {
+        echo '<script>';
+        echo 'location.replace("' . $url . '");';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url=' . $url . '" />';
+        echo '</noscript>';
+    }
+    exit;
+}
 ?>

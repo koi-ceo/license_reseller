@@ -10,11 +10,8 @@ define('_KOI_', true);
 date_default_timezone_set("Asia/Seoul");
 
 define('KOI_ESCAPE_FUNCTION', 'sql_escape_string');
+define('KOI_MYSQL_PASSWORD_LENGTH', 41);
 define('KOI_STRING_ENCRYPT_FUNCTION', 'create_hash');
-define('PBKDF2_COMPAT_HASH_ALGORITHM', 'SHA256');
-define('PBKDF2_COMPAT_ITERATIONS', 12000);
-define('PBKDF2_COMPAT_SALT_BYTES', 24);
-define('PBKDF2_COMPAT_HASH_BYTES', 24);
 
 define('KOI_SERVER_TIME', time());
 define('KOI_TIME_YMDHIS', date('Y-m-d H:i:s', KOI_SERVER_TIME));
