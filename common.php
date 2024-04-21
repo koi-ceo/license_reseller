@@ -184,3 +184,14 @@ if (isset($_SESSION['ss_mb_id']) && $_SESSION['ss_mb_id']) { // 로그인중이�
     }
     // 자동로그인 end ---------------------------------------
 }
+
+$is_member = $is_guest = false;
+$is_admin = '';
+if (isset($member['mb_no']) && $member['mb_no']) {
+    $is_member = true;
+    $is_admin = is_admin($member['mb_email']);
+} else {
+    $is_guest = true;
+    $member['mb_no'] = '';
+    $member['mb_level'] = 1; // 비회원의 경우 회원레벨을 가장 낮게 설정
+}

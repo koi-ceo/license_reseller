@@ -8,7 +8,15 @@
 $koi['title'] = "로그인";
 
 include_once('./_common.php');
-include_once('./_head.sub.php');
+include_once('./_head.php');
+
+// 이미 로그인 중이라면
+if (isset($is_member) && $is_member) {
+    if (isset($url) && $url)
+        goto_url($url);
+    else
+        goto_url(KOI_URL);
+}
 ?>
     <section class="hero is-fullheight">
         <div class="hero-body">
@@ -51,5 +59,5 @@ include_once('./_head.sub.php');
 
 
 <?php
-include_once "./tail.php";
+include_once('./_tail.php');
 ?>

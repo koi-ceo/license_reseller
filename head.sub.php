@@ -8,6 +8,7 @@
 if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
 
 $koi['title'] = $koi['title'] ?? strip_tags("KOI");
+$koi['title'] .= " | " . strip_tags("코이");
 $koi_head_title = $koi_head_title ?? strip_tags("코이");
 $koi['description'] = $koi['description'] ?? "";
 ?>
@@ -124,7 +125,7 @@ $koi['description'] = $koi['description'] ?? "";
             <div class="navbar-item">
                 <div class="buttons">
                     <?php if (isset($member['mb_no']) && $member['mb_no']) { ?>
-                        <a class="button is-primary" href="<?= KOI_BBS_URL ?>/logout.php">
+                        <a class="button is-primary" href="<?= KOI_BBS_URL ?>/modify.php">
                             <strong>내정보</strong>
                         </a>
                         <a class="button is-light" href="<?= KOI_BBS_URL ?>/logout.php">

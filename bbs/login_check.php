@@ -7,6 +7,14 @@
 
 include_once('./_common.php');
 
+// 이미 로그인 중이라면
+if (isset($is_member) && $is_member) {
+    if (isset($url) && $url)
+        goto_url($url);
+    else
+        goto_url(KOI_URL);
+}
+
 $mb_email = $_POST['mb_email'] ? trim($_POST['mb_email']) : '';
 $mb_password = $_POST['mb_password'] ? trim($_POST['mb_password']) : '';
 if (!$mb_email || !$mb_password)
