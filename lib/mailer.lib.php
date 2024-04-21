@@ -1,5 +1,5 @@
 <?php
-if (!defined('_GNUBOARD_')) exit;
+if (!defined('_KOI_')) exit;
 
 include_once(KOI_PHPMAILER_PATH . '/PHPMailerAutoload.php');
 
@@ -7,12 +7,6 @@ include_once(KOI_PHPMAILER_PATH . '/PHPMailerAutoload.php');
 // type : text=0, html=1, text+html=2
 function mailer($fname, $fmail, $to, $subject, $content, $type = 0, $file = "", $cc = "", $bcc = "")
 {
-    global $config;
-    global $g5;
-
-    // 메일발송 사용을 하지 않는다면
-    if (!$config['cf_email_use']) return;
-
     if ($type != 1)
         $content = nl2br($content);
 

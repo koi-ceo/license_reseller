@@ -532,4 +532,90 @@ function hyphen_hp_number($hp)
     return preg_replace("/([0-9]{3})([0-9]{3,4})([0-9]{4})$/", "\\1-\\2-\\3", $hp);
 }
 
+function set_session($session_name, $value)
+{
+    global $koi;
+
+    static $check_cookie = null;
+
+    if ($check_cookie === null) {
+        $cookie_session_name = session_name();
+        if (!isset($koi['session_cookie_samesite']) && !($cookie_session_name && isset($_COOKIE[$cookie_session_name]) && $_COOKIE[$cookie_session_name]) && !headers_sent()) {
+            @session_regenerate_id(false);
+        }
+
+        $check_cookie = 1;
+    }
+
+    // PHP 버전별 차이를 없애기 위한 방법
+    $$session_name = $_SESSION[$session_name] = $value;
+}
+
+
+// 세션변수값 얻음
+function get_session($session_name)
+{
+    return isset($_SESSION[$session_name]) ? $_SESSION[$session_name] : '';
+}
+
+
+// 쿠키변수 생성
+function set_cookie($cookie_name, $value, $expire)
+{
+    global $koi;
+
+    setcookie(md5($cookie_name), base64_encode($value), KOI_SERVER_TIME + $expire, '/', '');
+}
+
+
+// 쿠키변수값 얻음
+function get_cookie($cookie_name)
+{
+    $cookie = md5($cookie_name);
+    if (array_key_exists($cookie, $_COOKIE))
+        return base64_decode($_COOKIE[$cookie]);
+    else
+        return "";
+}
+
+function check_mail_bot($ip = '')
+{
+
+    //아이피를 체크하여 메일 크롤링을 방지합니다.
+    $check_ips = array('211.249.40.');
+    $bot_message = 'bot 으로 판단되어 중지합니다.';
+
+    if ($ip) {
+        foreach ($check_ips as $c_ip) {
+            if (preg_match('/^' . preg_quote($c_ip) . '/', $ip)) {
+                die($bot_message);
+            }
+        }
+    }
+
+    // user agent를 체크하여 메일 크롤링을 방지합니다.
+    $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+    if ($user_agent === 'Carbon' || strpos($user_agent, 'BingPreview') !== false || strpos($user_agent, 'Slackbot') !== false) {
+        die($bot_message);
+    }
+}
+
+function get_ip_address()
+{
+    if ($_SERVER['HTTP_CLIENT_IP'])
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if ($_SERVER['HTTP_X_FORWARDED_FOR'])
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if ($_SERVER['HTTP_X_FORWARDED'])
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if ($_SERVER['HTTP_FORWARDED_FOR'])
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if ($_SERVER['HTTP_FORWARDED'])
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if ($_SERVER['REMOTE_ADDR'])
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
 ?>

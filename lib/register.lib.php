@@ -27,7 +27,7 @@ function count_mb_id($reg_mb_id)
 
 function exist_mb_id($reg_mb_id)
 {
-    global $g5;
+    global $koi;
 
     $reg_mb_id = trim($reg_mb_id);
     if ($reg_mb_id == "") return "";
@@ -82,14 +82,6 @@ function empty_mb_name($reg_mb_name)
         return "";
 }
 
-function valid_mb_name($mb_name)
-{
-    if (!check_string($mb_name, G5_HANGUL))
-        return "이름은 공백없이 한글만 입력 가능합니다.";
-    else
-        return "";
-}
-
 function valid_mb_hp($reg_mb_hp)
 {
     $reg_mb_hp = preg_replace("/[^0-9]/", "", $reg_mb_hp);
@@ -105,13 +97,13 @@ function valid_mb_hp($reg_mb_hp)
 
 function exist_mb_hp($reg_mb_hp, $reg_mb_id)
 {
-    global $g5;
+    global $koi;
 
     if (!trim($reg_mb_hp)) return "";
 
     $reg_mb_hp = hyphen_hp_number($reg_mb_hp);
 
-    $sql = "select count(*) as cnt from {$g5['member_table']} where mb_hp = '$reg_mb_hp' and mb_id <> '$reg_mb_id' ";
+    $sql = "select count(*) as cnt from tbl_member where mb_hp = '$reg_mb_hp' and mb_id <> '$reg_mb_id' ";
     $row = sql_fetch($sql);
 
     if ($row['cnt'])
