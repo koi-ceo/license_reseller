@@ -32,21 +32,12 @@ function exist_mb_id($reg_mb_id)
     $reg_mb_id = trim($reg_mb_id);
     if ($reg_mb_id == "") return "";
 
-    $sql = " select count(*) as cnt from tbl_member where mb_id = '$reg_mb_id' ";
+    $sql = " select count(*) as cnt from tbl_member where mb_email = '$reg_mb_id' ";
     $row = sql_fetch($sql);
-    if ($row['cnt'])
-        return "이미 사용중인 회원아이디 입니다.";
+    if ($row && $row['cnt'])
+        return true;
     else
-        return "";
-}
-
-function reserve_mb_id($reg_mb_id)
-{
-    global $config;
-    if (preg_match("/[\,]?{$reg_mb_id}/i", $config['cf_prohibit_id']))
-        return "이미 예약된 단어로 사용할 수 없는 회원아이디 입니다.";
-    else
-        return "";
+        return false;
 }
 
 function empty_mb_nick($reg_mb_nick)
@@ -68,9 +59,9 @@ function count_mb_nick($reg_mb_nick)
 function valid_mb_email($reg_mb_email)
 {
     if (!preg_match("/([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)/", $reg_mb_email))
-        return "E-mail 주소가 형식에 맞지 않습니다.";
+        return true;
     else
-        return "";
+        return false;
 }
 
 
@@ -106,10 +97,10 @@ function exist_mb_hp($reg_mb_hp, $reg_mb_id)
     $sql = "select count(*) as cnt from tbl_member where mb_hp = '$reg_mb_hp' and mb_id <> '$reg_mb_id' ";
     $row = sql_fetch($sql);
 
-    if ($row['cnt'])
-        return " 이미 사용 중인 휴대폰번호입니다. " . $reg_mb_hp;
+    if ($row && $row['cnt'])
+        return true;
     else
-        return "";
+        return false;
 }
 
 ?>

@@ -24,15 +24,13 @@ if (valid_mb_email($mb_email)) {
 if (exist_mb_id($mb_email)) {
     alert('이미 사용중인 아이디입니다.');
 }
-if (reserve_mb_id($mb_email)) {
-    alert('해당 이메일은 사용할 수 없습니다.');
-}
 if (exist_mb_hp($mb_hp, $mb_email)) {
     alert('이미 사용중인 휴대폰 번호입니다.');
 }
 
 $mb_md5 = md5(pack('V*', rand(), rand(), rand(), rand()));
 $mb_password = get_encrypt_string($mb_password);
+$mb_hp = hyphen_hp_number($mb_hp);
 sql_query("insert into tbl_member set 
                                     mb_email = '{$mb_email}', 
                                     mb_password = '{$mb_password}',

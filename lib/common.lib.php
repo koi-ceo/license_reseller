@@ -17,8 +17,7 @@ function add_javascript($javascript, $order = 0)
 
 function alert($msg = '', $url = '', $error = true, $post = false, $version = 1, $icon = 'success')
 {
-    global $koi, $config, $member;
-    global $is_admin;
+    global $koi;
 
     run_event('alert', $msg, $url, $error, $post, $version, $icon);
 
@@ -618,4 +617,15 @@ function get_ip_address()
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 }
+
+function print_r2($var)
+{
+    ob_start();
+    print_r($var);
+    $str = ob_get_contents();
+    ob_end_clean();
+    $str = str_replace(" ", "&nbsp;", $str);
+    echo nl2br("<span style='font-family:Tahoma, 굴림; font-size:9pt;'>$str</span>");
+}
+
 ?>
