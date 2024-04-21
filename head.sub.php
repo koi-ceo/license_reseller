@@ -137,8 +137,8 @@ $koi['description'] = $koi['description'] ?? "";
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="<?= KOI_JS_DIR ?>/sweetalert2function.js"></script>
-<script src="<?= KOI_JS_DIR ?>/main.js"></script>
+<script src="<?= KOI_JS_URL ?>/sweetalert2function.js"></script>
+<script src="<?= KOI_JS_URL ?>/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function () {
