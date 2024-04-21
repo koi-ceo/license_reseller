@@ -9,6 +9,13 @@ include_once('./_common.php');
 include_once(KOI_LIB_PATH . '/register.lib.php');
 include_once(KOI_LIB_PATH . '/mailer.lib.php');
 
+if (isset($is_member) && $is_member) {
+    if (isset($url) && $url)
+        goto_url($url);
+    else
+        goto_url(KOI_URL);
+}
+
 if (!$mb_hp || strlen($mb_hp) < 10) {
     alert('휴대폰 번호를 정확히 입력해 주세요.');
 }

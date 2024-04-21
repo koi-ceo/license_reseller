@@ -99,4 +99,6 @@ define('KOI_EDITOR_PATH', KOI_PLUGIN_PATH . '/' . KOI_EDITOR_DIR);
 define('KOI_PHPMAILER_PATH', KOI_PLUGIN_PATH . '/' . KOI_PHPMAILER_DIR);
 define('KOI_AJAX_CALL_PATH', KOI_PATH . '/' . KOI_AJAX_CALL_DIR);
 
+define('KOI_DIR_PERMISSION', 0775); // 디렉토리 생성시 퍼미션
+define('KOI_FILE_PERMISSION', 0644); // 파일 생성시 퍼미션
 ?>
