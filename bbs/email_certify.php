@@ -17,7 +17,7 @@ $mb_md5 = trim($_GET['mb_md5']);
 
 $sql = " select * from tbl_member where mb_email = '{$mb_email}' ";
 $row = sql_fetch($sql);
-if (!$row['no'])
+if (!$row || !$row['no'])
     alert('존재하는 회원이 아닙니다.', KOI_URL);
 
 if ($row['mb_leave_date'] || $row['mb_intercept_date']) {
@@ -30,7 +30,7 @@ if ($row['mb_email_certify']) {
 
 if ($mb_md5) {
     if ($mb_md5 == $row['mb_email_certify_md']) {
-        sql_query(" update tbl_member set mb_email_certify = '" . KOI_TIME_YMDHIS . "' where mb_email = '{$mb_email}' ");
+        sql_query(" update tbl_member set mb_email_certify = '" . KOI_TIME_YMDHIS . "', mb_level = 2 where mb_email = '{$mb_email}' ");
 
         alert("메일인증 처리를 완료 하였습니다.\\n\\n지금부터 로그인 가능합니다.", KOI_URL);
     } else {
