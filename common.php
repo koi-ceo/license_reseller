@@ -119,3 +119,68 @@ $koi['connect_db'] = $connect_db;
 sql_set_charset('utf8', $connect_db);
 if (defined('KOI_MYSQL_SET_MODE') && KOI_MYSQL_SET_MODE) sql_query("SET SESSION sql_mode = ''");
 if (defined('KOI_TIMEZONE')) sql_query(" set time_zone = '" . KOI_TIMEZONE . "'");
+
+// 로그인 처리
+if (isset($_SESSION['ss_mb_id']) && $_SESSION['ss_mb_id']) { // 로그인중이라면
+    $member = get_member($_SESSION['ss_mb_id']);
+
+    // 차단된 회원이면 ss_mb_id 초기화
+    if ($member['mb_intercept_date'] && $member['mb_intercept_date'] <= date("Ymd", KOI_SERVER_TIME)) {
+        set_session('ss_mb_id', '');
+        $member = array();
+    } else {
+        // 오늘 처음 로그인 이라면
+        if (substr($member['mb_today_login'], 0, 10) != KOI_TIME_YMD) {
+            // 첫 로그인 포인트 지급
+//                f_point_earn($member['mb_no'], $config['cf_login_point'], G5_TIME_YMD . " 첫 로그인", '4', '365');
+
+            // 오늘의 로그인이 될 수도 있으며 마지막 로그인일 수도 있음
+            // 해당 회원의 접근일시와 IP 를 저장
+            $ip = get_ip_address();
+            $sql = " update tbl_member set mb_today_login = '" . KOI_TIME_YMDHIS . "', mb_login_ip = '{$ip}' where mb_email = '{$member['mb_email']}' ";
+            sql_query($sql);
+
+            // 접속 로그 추가 20200914 holic
+            sql_query("insert into tbl_member_visit set mb_no = '{$member['mb_no']}', ip = '{$ip}', reg_date = '" . KOI_TIME_YMDHIS . "'");
+        }
+    }
+} else {
+    // 자동로그인 ---------------------------------------
+    // 회원아이디가 쿠키에 저장되어 있다면 (3.27)
+    if ($tmp_mb_id = get_cookie('ck_mb_id')) {
+//        f_set_login_event_ticket();
+        // 접속 로그 추가 20200914 holic
+        $ip = get_ip_address();
+        sql_query("insert into tbl_member_visit set mb_no = '{$member['mb_no']}', ip = '{$ip}', reg_date = '" . KOI_TIME_YMDHIS . "'");
+
+        $tmp_mb_id = substr(preg_replace("/[^a-zA-Z0-9_]*/", "", $tmp_mb_id), 0, 20);
+        // 최고관리자는 자동로그인 금지
+        if (strtolower($tmp_mb_id) != strtolower($config['cf_admin'])) {
+            $sql = " select mb_password, mb_intercept_date, mb_leave_date, mb_email_certify, mb_level from {$g5['member_table']} where mb_email = '{$tmp_mb_id}' ";
+            $row = sql_fetch($sql);
+            if ($row['mb_password'] && $row['mb_email_certify']) {
+                $key = md5($_SERVER['SERVER_SOFTWARE'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password']);
+                // 쿠키에 저장된 키와 같다면
+                $tmp_key = get_cookie('ck_auto');
+                if ($tmp_key === $key && $tmp_key) {
+                    // 차단, 탈퇴가 아니면
+                    if ($row['mb_intercept_date'] == '' && $row['mb_leave_date'] == '') {
+                        // 쿠키 expire 재설정
+                        set_cookie('ck_mb_id', $tmp_mb_id, 86400 * 9999);
+                        set_cookie('ck_auto', $key, 86400 * 9999);
+
+                        // 세션에 회원아이디를 저장하여 로그인으로 간주
+                        set_session('ss_mb_id', $tmp_mb_id);
+
+                        // 페이지를 재실행
+                        echo "<script type='text/javascript'> window.location.reload(); </script>";
+                        exit;
+                    }
+                }
+            }
+            // $row 배열변수 해제
+            unset($row);
+        }
+    }
+    // 자동로그인 end ---------------------------------------
+}

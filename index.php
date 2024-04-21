@@ -2,7 +2,6 @@
 include_once('./_common.php');
 include_once "./head.php";
 
-print_r2($_SESSION);
 ?>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

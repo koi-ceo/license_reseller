@@ -7,10 +7,16 @@
 
 include_once('./_common.php');
 
+$mb_email = $_POST['mb_email'] ? trim($_POST['mb_email']) : '';
+$mb_password = $_POST['mb_password'] ? trim($_POST['mb_password']) : '';
 if (!$mb_email || !$mb_password)
     alert('회원아이디나 비밀번호가 공백이면 안됩니다.');
 
 $mb = get_member($mb_email);
+
+if (!$mb) {
+    alert('가입된 회원아이디가 아니거나,\\n 비밀번호가 틀립니다.\\n비밀번호는 대소문자를 구분합니다.');
+}
 
 if (!login_password_check($mb, $mb_password, $mb['mb_password'])) {
     run_event('password_is_wrong', 'login', $mb);
@@ -82,6 +88,6 @@ if (isset($url) && $url) {
     $link = KOI_URL;
 }
 
-run_event('member_login_check', $mb, $link,'');
+run_event('member_login_check', $mb, $link, '');
 goto_url($link);
 ?>
