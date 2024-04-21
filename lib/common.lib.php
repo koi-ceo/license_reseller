@@ -110,7 +110,7 @@ function get_member($mb_id, $fields = '*', $is_cache = false)
         return $cache[$mb_id][$key];
     }
 
-    $sql = " select $fields from tbl_member where mb_id = TRIM('$mb_id') ";
+    $sql = " select $fields from tbl_member where mb_email = TRIM('$mb_id') ";
 
     $cache[$mb_id][$key] = run_replace('get_member', sql_fetch($sql), $mb_id, $fields, $is_cache);
 
@@ -371,7 +371,6 @@ function check_password($pass, $hash)
     }
 
     $password = get_encrypt_string($pass);
-
     return ($password === $hash);
 }
 
@@ -626,6 +625,15 @@ function print_r2($var)
     ob_end_clean();
     $str = str_replace(" ", "&nbsp;", $str);
     echo nl2br("<span style='font-family:Tahoma, 굴림; font-size:9pt;'>$str</span>");
+}
+
+function get_real_client_ip()
+{
+    $real_ip = $_SERVER['REMOTE_ADDR'];
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\z/', $_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $real_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+    return preg_replace('/[^0-9.]/', '', $real_ip);
 }
 
 ?>

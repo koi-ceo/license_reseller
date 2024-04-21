@@ -21,7 +21,7 @@ include_once('./_head.sub.php');
                         <div class="field">
                             <label class="label has-text-white">이메일</label>
                             <div class="control">
-                                <input class="input is-medium" type="email" autofocus="" name="mb_id">
+                                <input class="input is-medium" type="email" autofocus="" name="mb_email">
                             </div>
                         </div>
 
