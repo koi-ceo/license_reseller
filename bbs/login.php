@@ -45,7 +45,7 @@ if (isset($is_member) && $is_member) {
                                     자동로그인
                                 </label>
                             </div>
-                            <button class="button is-block is-info is-large is-fullwidth">로그인 <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                            <button class="button is-block is-info is-large is-fullwidth">로그인하기 <i class="fa fa-sign-in" aria-hidden="true"></i></button>
                         </form>
                     </div>
                     <p class="has-text-grey has-text-centered">

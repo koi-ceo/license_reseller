@@ -51,7 +51,7 @@ if (isset($is_member) && $is_member) {
                                     <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">
                                 </div>
                             </div>
-                            <button class="button is-block is-info is-large is-fullwidth">회원가입 <i class="fa fa-user-plus" aria-hidden="true"></i></button>
+                            <button class="button is-block is-info is-large is-fullwidth">가입하기 <i class="fa fa-user-plus" aria-hidden="true"></i></button>
                         </form>
                     </div>
                     <p class="has-text-grey has-text-centered">

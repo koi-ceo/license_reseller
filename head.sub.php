@@ -126,10 +126,10 @@ $koi['description'] = $koi['description'] ?? "";
                 <div class="buttons">
                     <?php if (isset($member['mb_no']) && $member['mb_no']) { ?>
                         <a class="button is-primary" href="<?= KOI_BBS_URL ?>/modify.php">
-                            <strong>내정보</strong>
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<strong>내정보</strong>
                         </a>
                         <a class="button is-light" href="<?= KOI_BBS_URL ?>/logout.php">
-                            <strong>로그아웃</strong>
+                            <strong>로그아웃</strong>&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>
                         </a>
                     <?php } else { ?>
                         <a class="button is-primary" href="<?= KOI_BBS_URL ?>/register.php">

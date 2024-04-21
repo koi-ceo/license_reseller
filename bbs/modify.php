@@ -20,35 +20,46 @@ include_once('./_head.php');
                 <div class="box koi-background">
                     <form id="form_register" method="post" autocomplete="off" enctype="multipart/form-data" action="<?= KOI_BBS_URL ?>/register_update.php">
                         <div class="field">
-                            <label class="label has-text-white">이메일</label>
-                            <div class="control">
-                                <input class="input is-medium" type="email" autofocus="" name="mb_email" required="required">
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label has-text-white">비밀번호</label>
-                            <div class="control">
-                                <input class="input is-medium" type="password" name="mb_password" required="required" id="mb_password">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label has-text-white">비밀번호 확인</label>
-                            <div class="control">
-                                <input class="input is-medium" type="password" name="mb_password_re" required="required" id="mb_password_re">
-                            </div>
-                        </div>
-                        <div class="field">
                             <label class="label has-text-white">휴대폰</label>
                             <div class="control">
                                 <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">
                             </div>
                         </div>
-                        <button class="button is-block is-info is-large is-fullwidth">회원가입 <i class="fa fa-user-plus" aria-hidden="true"></i></button>
+                        <div class="field">
+                            <label class="label has-text-white">사업자번호</label>
+                            <div class="control">
+                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label has-text-white">이메일(전자세금계산서 발급용)</label>
+                            <div class="control">
+                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="file has-name">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="mb_image" id="mb_image">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fa fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            사업자등록증
+                                        </span>
+                                    </span>
+                                    <span class="file-name is-hidden has-text-white" id="mb_image_wrap">
+
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <button class="button is-block is-info is-large is-fullwidth">수정하기 <i class="fa fa-user-plus" aria-hidden="true"></i></button>
                     </form>
                 </div>
                 <p class="has-text-grey has-text-centered">
-                    <a href="<?= KOI_BBS_URL ?>/login.php">돌아가기</a> &nbsp;·&nbsp;
+                    <a href="javascript:history.back();">돌아가기</a> &nbsp;·&nbsp;
                     <a href="register.php"">비밀번호 변경</a> &nbsp;·&nbsp;
                     <a href="register.php"">회원탈퇴</a>
                 </p>
@@ -56,6 +67,14 @@ include_once('./_head.php');
         </div>
     </div>
 </section>
+
+<script>
+    document.getElementById('mb_image').addEventListener('change', function (e) {
+        let fileName = e.target.files[0].name;
+        document.getElementById('mb_image_wrap').classList.remove('is-hidden');
+        document.getElementById('mb_image_wrap').textContent = fileName;
+    });
+</script>
 
 
 <?php
