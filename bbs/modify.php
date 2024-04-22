@@ -67,7 +67,7 @@ if (!isset($member) || !$member['mb_no']) {
                 </div>
                 <p class="has-text-grey has-text-centered">
                     <a href="javascript:history.back();">돌아가기</a> &nbsp;·&nbsp;
-                    <a href="register.php"">비밀번호 변경</a> &nbsp;·&nbsp;
+                    <a href="modify_password.php"">비밀번호 변경</a> &nbsp;·&nbsp;
                     <a href="register.php"">회원탈퇴</a>
                 </p>
             </div>
