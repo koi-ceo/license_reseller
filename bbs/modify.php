@@ -9,6 +9,13 @@ $koi['title'] = "정보수정";
 
 include_once('./_common.php');
 include_once('./_head.php');
+
+if (!isset($member) || !$member['mb_no']) {
+    if (isset($url) && $url)
+        goto_url($url);
+    else
+        goto_url(KOI_URL);
+}
 ?>
 
 <section class="hero is-fullheight">
