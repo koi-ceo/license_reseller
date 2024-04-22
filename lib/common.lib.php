@@ -592,7 +592,6 @@ function mb_img_upload($srcfile, $filename, $dir)
 
             if (is_file($dir . '/' . $prepend . $filename)) {
                 usleep(mt_rand(100, 10000));
-                continue;
             } else {
                 break;
             }

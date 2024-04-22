@@ -22,8 +22,10 @@ if (isset($member) && $member['mb_no']) {
 
     $it_img_dir = KOI_DATA_PATH . '/member';
     if ($mb_image['name']) {
-        $mb_image = mb_img_upload($_FILES['mb_image']['tmp_name'], $_FILES['mb_image']['name'], $it_img_dir . '/' . $member['mb_no']);
-        if ($mb_image['error']) {
+        preg_match('#.+\.([a-z]+)$#', $mb_image['name'], $m);
+        $image_name = date('YmdHis') . (microtime(true) * 10000) . '.' . strtolower($m[1]);
+        $mb_image = mb_img_upload($_FILES['mb_image']['tmp_name'], $image_name, $it_img_dir);
+        if (isset($mb_image['error']) && $mb_image['error']) {
             alert($mb_image['error']);
         }
     }

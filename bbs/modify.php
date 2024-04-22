@@ -19,22 +19,22 @@ include_once('./_head.php');
                 <hr class="login-hr">
                 <div class="box koi-background">
                     <form id="form_register" method="post" autocomplete="off" enctype="multipart/form-data" action="<?= KOI_BBS_URL ?>/modify_update.php">
-<!--                        <div class="field">-->
-<!--                            <label class="label has-text-white">휴대폰</label>-->
-<!--                            <div class="control">-->
-<!--                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="field">-->
+                        <!--                            <label class="label has-text-white">휴대폰</label>-->
+                        <!--                            <div class="control">-->
+                        <!--                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <div class="field">
                             <label class="label has-text-white">사업자번호</label>
                             <div class="control">
-                                <input class="input is-medium" type="text" name="mb_company_num" id="mb_company_num" required="required">
+                                <input class="input is-medium" type="text" name="mb_company_num" id="mb_company_num" required="required" value="<?= $member['mb_company_num'] ?>">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label has-text-white">이메일(전자세금계산서 발급용)</label>
                             <div class="control">
-                                <input class="input is-medium" type="email" name="mb_company_email" id="mb_company_email" required="required">
+                                <input class="input is-medium" type="email" name="mb_company_email" id="mb_company_email" required="required" value="<?= $member['mb_company_email'] ?>">
                             </div>
                         </div>
                         <div class="field">
