@@ -51,7 +51,7 @@ $koi['description'] = $koi['description'] ?? "";
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
+                <a class="navbar-link" href="">
                     <img src="/img/jetbrains_icon.png"><span class="pl-2">Jetbrins</span>
                 </a>
 
