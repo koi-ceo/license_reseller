@@ -56,8 +56,8 @@ if (!isset($member) || !$member['mb_no']) {
                                             사업자등록증
                                         </span>
                                     </span>
-                                    <span class="file-name is-hidden has-text-white" id="mb_image_wrap">
-
+                                    <span class="file-name <?= $member['mb_image'] ? "" : "is-hidden" ?> has-text-white" id="mb_image_wrap">
+                                        <?= $member['mb_image'] ?>
                                     </span>
                                 </label>
                             </div>

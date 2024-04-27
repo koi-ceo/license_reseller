@@ -1,5 +1,5 @@
 <?php
 if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
 
-include_once("./tail.sub.php");
+include_once(KOI_PATH . "/tail.sub.php");
 ?>
