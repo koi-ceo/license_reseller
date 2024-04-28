@@ -132,10 +132,10 @@ $koi['description'] = $koi['description'] ?? "";
                             <strong>장바구니</strong>&nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </a>
                     <?php } else { ?>
-                        <a class="button is-primary" href="<?= KOI_BBS_URL ?>/register.php">
+                        <a class="button is-light" href="<?= KOI_BBS_URL ?>/register.php">
                             <strong>회원가입</strong>
                         </a>
-                        <a class="button is-light" href="<?= KOI_BBS_URL ?>/login.php">
+                        <a class="button is-primary" href="<?= KOI_BBS_URL ?>/login.php">
                             <strong>로그인</strong>
                         </a>
                     <?php } ?>
