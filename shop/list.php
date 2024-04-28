@@ -13,22 +13,20 @@ include_once('./_head.php');
 
 <section class="section">
     <div class="container">
-        <!-- filter menu -->
         <div class="buttons has-addons is-centered filter-menu">
             <label class="button is-primary is-active">
                 <input type="radio" name="shuffle-filter" value="all" checked="checked"/>All
             </label>
             <label class="button is-primary">
-                <input type="radio" name="shuffle-filter" value="design"/>UI/UX Design
+                <input type="radio" name="shuffle-filter" value="design"/>Jetbrains
             </label>
             <label class="button is-primary">
-                <input type="radio" name="shuffle-filter" value="branding"/>BRANDING
+                <input type="radio" name="shuffle-filter" value="branding"/>Adobe
             </label>
             <label class="button is-primary">
-                <input type="radio" name="shuffle-filter" value="illustration"/>ILLUSTRATION
+                <input type="radio" name="shuffle-filter" value="illustration"/>Microsoft
             </label>
         </div>
-        <!-- /filter menu -->
 
         <div class="columns shuffle-wrapper">
             <div class="column is-4-desktop is-6-tablet mb-20 shuffle-item" data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
@@ -127,7 +125,6 @@ include_once('./_head.php');
 </section>
 
 <script src="<?= KOI_JS_URL ?>/shuffle.min.js"></script>
-
 <script>
     // Shuffle js filter and masonry
     let Shuffle = window.Shuffle;

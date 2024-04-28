@@ -26,12 +26,6 @@ if (!isset($member) || !$member['mb_no']) {
                 <hr class="login-hr">
                 <div class="box koi-background">
                     <form id="form_register" method="post" autocomplete="off" enctype="multipart/form-data" action="<?= KOI_BBS_URL ?>/modify_update.php">
-                        <!--                        <div class="field">-->
-                        <!--                            <label class="label has-text-white">휴대폰</label>-->
-                        <!--                            <div class="control">-->
-                        <!--                                <input class="input is-medium" type="text" name="mb_hp" id="mb_hp" required="required">-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
                         <div class="field">
                             <label class="label has-text-white">사업자번호</label>
                             <div class="control">
@@ -66,9 +60,9 @@ if (!isset($member) || !$member['mb_no']) {
                     </form>
                 </div>
                 <p class="has-text-grey has-text-centered">
-                    <a href="javascript:history.back();">돌아가기</a> &nbsp;·&nbsp;
-                    <a href="modify_password.php"">비밀번호 변경</a> &nbsp;·&nbsp;
-                    <a href="register.php"">회원탈퇴</a>
+                    <a href="<?= KOI_BBS_URL ?>/logout.php">로그아웃</a> &nbsp;·&nbsp;
+                    <a href="<?= KOI_BBS_URL ?>/modify_password.php"">비밀번호 변경</a> &nbsp;·&nbsp;
+                    <a href="<?= KOI_BBS_URL ?>/register.php"">회원탈퇴</a>
                 </p>
             </div>
         </div>
