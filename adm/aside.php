@@ -5,7 +5,6 @@
  * Date: 2024-04-28
  */
 
-if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
 ?>
 <aside class="aside is-placed-left is-expanded">
     <div class="aside-tools">

@@ -5,25 +5,6 @@ include_once('./_head.php');
 $member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
 ?>
 
-<div id="app">
-    <nav id="navbar-main" class="navbar is-fixed-top">
-        <div class="navbar-brand is-right">
-            <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
-                <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
-            </a>
-        </div>
-        <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
-            <div class="navbar-end">
-                <a title="Log out" class="navbar-item is-desktop-icon-only" href="<?= KOI_BBS_URL ?>/logout.php">
-                    <span class="icon"><i class="mdi mdi-logout"></i></span>
-                    <span>Log out</span>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <?php include_once(KOI_ADMIN_PATH . '/aside.php'); ?>
-
     <section class="section is-title-bar">
         <div class="level">
             <div class="level-left">
@@ -505,27 +486,7 @@ $member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
             </div>
         </div>
     </section>
-</div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script type="text/javascript" src="<?= KOI_ADMIN_URL ?>/js/chart.sample.js"></script>
 
-<div id="sample-modal" class="modal">
-    <div class="modal-background jb-modal-close"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">Confirm action</p>
-            <button class="delete jb-modal-close" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-            <p>This will permanently delete <b>Some Object</b></p>
-            <p>This is sample modal</p>
-        </section>
-        <footer class="modal-card-foot">
-            <button class="button jb-modal-close">Cancel</button>
-            <button class="button is-danger jb-modal-close">Delete</button>
-        </footer>
-    </div>
-    <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
-</div>
-
-<script type="text/javascript" src="<?= KOI_ADMIN_URL ?>/js/main.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script type="text/javascript" src="<?= KOI_ADMIN_URL ?>/js/chart.sample.js"></script>
+<?php include_once('./_tail.php'); ?>
