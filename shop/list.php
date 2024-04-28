@@ -30,6 +30,7 @@ include_once('./_head.php');
         </div>
 
         <div class="columns shuffle-wrapper">
+
             <div class="column is-4-desktop is-6-tablet shuffle-item" data-groups="[&quot;jetbrains&quot;]">
                 <div class="is-relative hover-wrapper column">
                     <div class="cause-item">
@@ -38,8 +39,8 @@ include_once('./_head.php');
                             <h3 class="mb-4"><a href="cause-single.html" class="title">Pycharm</a></h3>
                             <p class="card-text mb-5 pt-5 border-top">파이썬 개발자와 데이터 과학자를 위한 IDE</p>
                             <ul class="list-inline border-bottom border-top py-3 mb-4">
-                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>1년 : <span>$890</span> (vat포함)</li>
-                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>월 : <span>$390</span> (vat포함)</li>
+                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>연간 : <span>$890</span> (vat포함)</li>
+                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>월별 : <span>$390</span> (vat포함)</li>
                             </ul>
                             <a href="donation.html" class="btn btn-main is-rounded">장바구니 담기</a>
                         </div>
@@ -51,13 +52,12 @@ include_once('./_head.php');
                 <div class="is-relative hover-wrapper column">
                     <div class="cause-item">
                         <img src="/img/item1.jpg" class="image is-full is-block" alt="...">
-
                         <div class="card-body">
                             <h3 class="mb-4"><a href="cause-single.html" class="title">Pycharm</a></h3>
                             <p class="card-text mb-5 pt-5 border-top">파이썬 개발자와 데이터 과학자를 위한 IDE</p>
                             <ul class="list-inline border-bottom border-top py-3 mb-4">
-                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>1년 : <span>$890</span> (vat포함)</li>
-                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>월 : <span>$390</span> (vat포함)</li>
+                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>연간 : <span>$890</span> (vat포함)</li>
+                                <li class="list-inline-item"><i class="icofont-check text-color mr-2"></i>월별 : <span>$390</span> (vat포함)</li>
                             </ul>
                             <a href="donation.html" class="btn btn-main is-rounded">장바구니 담기</a>
                         </div>
