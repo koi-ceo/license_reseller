@@ -1,6 +1,8 @@
 <?php
 include_once('./_common.php');
 include_once('./_head.php');
+
+$member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
 ?>
 
 <div id="app">
@@ -69,7 +71,7 @@ include_once('./_head.php');
                                         총 회원수
                                     </h3>
                                     <h1 class="title">
-                                        512
+                                        <?= number_format($member_cnt['cnt']) ?>
                                     </h1>
                                 </div>
                             </div>

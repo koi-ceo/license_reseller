@@ -6833,7 +6833,7 @@ a.dropdown-item.is-active, button.dropdown-item.is-active {
 
 .menu-list a {
     border-radius: 0;
-    color: #727c8f;
+    color: #FFFFFF;
     display: block;
     padding: .5rem 0
 }
@@ -6855,10 +6855,10 @@ a.dropdown-item.is-active, button.dropdown-item.is-active {
 }
 
 .menu-label {
-    color: #666f81;
-    font-size: .75em;
+    color: #FFFFFF;
+    font-size: 1em;
     letter-spacing: .1em;
-    text-transform: uppercase
+    text-transform: uppercase;
 }
 
 .menu-label:not(:first-child) {

@@ -10,7 +10,7 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
 <aside class="aside is-placed-left is-expanded">
     <div class="aside-tools">
         <div class="aside-tools-label">
-            <span><b>Admin</b> One HTML</span>
+            <span><b>KOI</b></span>
         </div>
     </div>
     <div class="menu is-menu-main">
@@ -23,60 +23,73 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
                 </a>
             </li>
         </ul>
-        <p class="menu-label">Examples</p>
+        <p class="menu-label">배너</p>
         <ul class="menu-list">
             <li>
                 <a href="tables.html" class="has-icon">
-                    <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
-                    <span class="menu-item-label">Tables</span>
+                    <span class="icon"><i class="mdi mdi-page-first"></i></span>
+                    <span class="menu-item-label">메인</span>
                 </a>
             </li>
             <li>
                 <a href="forms.html" class="has-icon">
-                    <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-                    <span class="menu-item-label">Forms</span>
+                    <span class="icon"><i class="mdi mdi-page-last"></i></span>
+                    <span class="menu-item-label">하단</span>
                 </a>
-            </li>
-            <li>
-                <a href="profile.html" class="has-icon">
-                    <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-                    <span class="menu-item-label">Profile</span>
-                </a>
-            </li>
-            <li>
-                <a class="has-icon has-dropdown-icon">
-                    <span class="icon"><i class="mdi mdi-view-list"></i></span>
-                    <span class="menu-item-label">Submenus</span>
-                    <div class="dropdown-icon">
-                        <span class="icon"><i class="mdi mdi-plus"></i></span>
-                    </div>
-                </a>
-                <ul>
-                    <li>
-                        <a href="#void">
-                            <span>Sub-item One</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#void">
-                            <span>Sub-item Two</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
-        <p class="menu-label">About</p>
+        <p class="menu-label">회원</p>
         <ul class="menu-list">
             <li>
-                <a href="https://github.com/vikdiesel/admin-one-bulma-dashboard" target="_blank" class="has-icon">
-                    <span class="icon"><i class="mdi mdi-github-circle"></i></span>
-                    <span class="menu-item-label">GitHub</span>
+                <a href="tables.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-table"></i></span>
+                    <span class="menu-item-label">회원리스트</span>
                 </a>
             </li>
             <li>
-                <a href="https://justboil.me/bulma-admin-template/free-html-dashboard/" class="has-icon">
-                    <span class="icon"><i class="mdi mdi-help-circle"></i></span>
-                    <span class="menu-item-label">About</span>
+                <a href="forms.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-table"></i></span>
+                    <span class="menu-item-label">포인트내역</span>
+                </a>
+            </li>
+        </ul>
+        <p class="menu-label">상품</p>
+        <ul class="menu-list">
+            <li>
+                <a href="tables.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-table"></i></span>
+                    <span class="menu-item-label">상품리스트</span>
+                </a>
+            </li>
+        </ul>
+        <p class="menu-label">주문</p>
+        <ul class="menu-list">
+            <li>
+                <a href="tables.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-cart"></i></span>
+                    <span class="menu-item-label">주문내역</span>
+                </a>
+            </li>
+        </ul>
+        <p class="menu-label">게시판</p>
+        <ul class="menu-list">
+            <li>
+                <a href="tables.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-table"></i></span>
+                    <span class="menu-item-label">공지사항</span>
+                </a>
+            </li>
+            <li>
+                <a href="tables.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-table"></i></span>
+                    <span class="menu-item-label">FAQ</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="forms.html" class="has-icon">
+                    <span class="icon"><i class="mdi mdi-table"></i></span>
+                    <span class="menu-item-label">견적내역</span>
                 </a>
             </li>
         </ul>
