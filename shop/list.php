@@ -43,7 +43,7 @@ include_once('./_head.php');
             </div>
             <div class="column is-4-desktop is-6-tablet mb-20 shuffle-item" data-groups="[&quot;branding&quot;]">
                 <div class="is-relative hover-wrapper">
-                    <img src="/img/pycharm.jpg" alt="portfolio-image" class="image is-full is-block">
+                    <img src="/img/adobe_icon.png" alt="portfolio-image" class="image is-full is-block">
                     <div class="hover-overlay">
                         <div class="hover-content">
                             <a class="button is-light is-small" href="project-single.html">view project</a>
@@ -53,7 +53,7 @@ include_once('./_head.php');
             </div>
             <div class="column is-4-desktop is-6-tablet mb-20 shuffle-item" data-groups="[&quot;illustration&quot;]">
                 <div class="is-relative hover-wrapper">
-                    <img src="/img/pycharm.jpg" alt="portfolio-image" class="image is-full is-block">
+                    <img src="/img/intellij_idea.jpg" alt="portfolio-image" class="image is-full is-block">
                     <div class="hover-overlay">
                         <div class="hover-content">
                             <a class="button is-light is-small" href="project-single.html">view project</a>
@@ -63,7 +63,7 @@ include_once('./_head.php');
             </div>
             <div class="column is-4-desktop is-6-tablet mb-20 shuffle-item" data-groups="[&quot;design&quot;,&quot;branding&quot;]">
                 <div class="is-relative hover-wrapper">
-                    <img src="/img/pycharm.jpg" alt="portfolio-image" class="image is-full is-block">
+                    <img src="/img/jetbrains_icon.png" alt="portfolio-image" class="image is-full is-block">
                     <div class="hover-overlay">
                         <div class="hover-content">
                             <a class="button is-light is-small" href="project-single.html">view project</a>
@@ -73,7 +73,7 @@ include_once('./_head.php');
             </div>
             <div class="column is-4-desktop is-6-tablet mb-20 shuffle-item" data-groups="[&quot;illustration&quot;]">
                 <div class="is-relative hover-wrapper">
-                    <img src="/img/pycharm.jpg" alt="portfolio-image" class="image is-full is-block">
+                    <img src="/img/microsoft_icon.png" alt="portfolio-image" class="image is-full is-block">
                     <div class="hover-overlay">
                         <div class="hover-content">
                             <a class="button is-light is-small" href="project-single.html">view project</a>
@@ -83,7 +83,7 @@ include_once('./_head.php');
             </div>
             <div class="column is-4-desktop is-6-tablet mb-20 shuffle-item" data-groups="[&quot;design&quot;]">
                 <div class="is-relative hover-wrapper">
-                    <img src="/img/pycharm.jpg" alt="portfolio-image" class="image is-full is-block">
+                    <img src="/img/phpstorm.jpg" alt="portfolio-image" class="image is-full is-block">
                     <div class="hover-overlay">
                         <div class="hover-content">
                             <a class="button is-light is-small" href="project-single.html">view project</a>
@@ -126,6 +126,7 @@ include_once('./_head.php');
     </div>
 </section>
 
+<script src="<?= KOI_JS_URL ?>/shuffle.min.js"></script>
 
 <script>
     // Shuffle js filter and masonry
