@@ -5,14 +5,6 @@ include_once('./_head.php');
 
 <div id="app">
     <nav id="navbar-main" class="navbar is-fixed-top">
-        <div class="navbar-brand">
-            <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
-                <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
-            </a>
-            <div class="navbar-item has-control">
-                <div class="control"><input placeholder="Search everywhere..." class="input"></div>
-            </div>
-        </div>
         <div class="navbar-brand is-right">
             <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
                 <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
@@ -27,81 +19,9 @@ include_once('./_head.php');
             </div>
         </div>
     </nav>
-    <aside class="aside is-placed-left is-expanded">
-        <div class="aside-tools">
-            <div class="aside-tools-label">
-                <span><b>Admin</b> One HTML</span>
-            </div>
-        </div>
-        <div class="menu is-menu-main">
-            <p class="menu-label">General</p>
-            <ul class="menu-list">
-                <li>
-                    <a href="index.html" class="is-active router-link-active has-icon">
-                        <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-                        <span class="menu-item-label">Dashboard</span>
-                    </a>
-                </li>
-            </ul>
-            <p class="menu-label">Examples</p>
-            <ul class="menu-list">
-                <li>
-                    <a href="tables.html" class="has-icon">
-                        <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
-                        <span class="menu-item-label">Tables</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="forms.html" class="has-icon">
-                        <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-                        <span class="menu-item-label">Forms</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="profile.html" class="has-icon">
-                        <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-                        <span class="menu-item-label">Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="has-icon has-dropdown-icon">
-                        <span class="icon"><i class="mdi mdi-view-list"></i></span>
-                        <span class="menu-item-label">Submenus</span>
-                        <div class="dropdown-icon">
-                            <span class="icon"><i class="mdi mdi-plus"></i></span>
-                        </div>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="#void">
-                                <span>Sub-item One</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#void">
-                                <span>Sub-item Two</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <p class="menu-label">About</p>
-            <ul class="menu-list">
-                <li>
-                    <a href="https://github.com/vikdiesel/admin-one-bulma-dashboard" target="_blank" class="has-icon">
-                        <span class="icon"><i class="mdi mdi-github-circle"></i></span>
-                        <span class="menu-item-label">GitHub</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://justboil.me/bulma-admin-template/free-html-dashboard/" class="has-icon">
-                        <span class="icon"><i class="mdi mdi-help-circle"></i></span>
-                        <span class="menu-item-label">About</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
+
+    <?php include_once(KOI_ADMIN_PATH . '/aside.php'); ?>
+
     <section class="section is-title-bar">
         <div class="level">
             <div class="level-left">
@@ -146,7 +66,7 @@ include_once('./_head.php');
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label"><h3 class="subtitle is-spaced">
-                                        Clients
+                                        총 회원수
                                     </h3>
                                     <h1 class="title">
                                         512
@@ -154,8 +74,7 @@ include_once('./_head.php');
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i
-                                                class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +87,7 @@ include_once('./_head.php');
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label"><h3 class="subtitle is-spaced">
-                                        Sales
+                                        구매금액
                                     </h3>
                                     <h1 class="title">
                                         $7,770
@@ -176,8 +95,7 @@ include_once('./_head.php');
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i
-                                                class="mdi mdi-cart-outline mdi-48px"></i></span>
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +108,7 @@ include_once('./_head.php');
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label"><h3 class="subtitle is-spaced">
-                                        Performance
+                                        회원당 구매수
                                     </h3>
                                     <h1 class="title">
                                         256%
@@ -198,8 +116,7 @@ include_once('./_head.php');
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon"><span class="icon has-text-success is-large"><i
-                                                class="mdi mdi-finance mdi-48px"></i></span>
+                                <div class="is-widget-icon"><span class="icon has-text-success is-large"><i class="mdi mdi-finance mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
