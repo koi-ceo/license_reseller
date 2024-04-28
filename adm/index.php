@@ -89,7 +89,28 @@ $member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label"><h3 class="subtitle is-spaced">
-                                        구매금액
+                                        이번달 가입
+                                    </h3>
+                                    <h1 class="title">
+                                        <?= number_format($member_cnt['cnt']) ?>
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        미처리주문
                                     </h3>
                                     <h1 class="title">
                                         $7,770
@@ -110,15 +131,36 @@ $member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label"><h3 class="subtitle is-spaced">
-                                        회원당 구매수
+                                        미입금주문수
                                     </h3>
                                     <h1 class="title">
-                                        256%
+                                        $7,770
                                     </h1>
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon"><span class="icon has-text-success is-large"><i class="mdi mdi-finance mdi-48px"></i></span>
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        구매금액
+                                    </h3>
+                                    <h1 class="title">
+                                        $7,770
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
