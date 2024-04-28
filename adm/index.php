@@ -20,65 +20,7 @@ include_once('./_head.php');
         </div>
         <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
             <div class="navbar-end">
-                <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
-                    <a class="navbar-link is-arrowless">
-                        <span class="icon"><i class="mdi mdi-menu"></i></span>
-                        <span>Sample Menu</span>
-                        <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-                    </a>
-                    <div class="navbar-dropdown">
-                        <a href="profile.html" class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-account"></i></span>
-                            <span>My Profile</span>
-                        </a>
-                        <a class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-settings"></i></span>
-                            <span>Settings</span>
-                        </a>
-                        <a class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-email"></i></span>
-                            <span>Messages</span>
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-logout"></i></span>
-                            <span>Log Out</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
-                    <a class="navbar-link is-arrowless">
-                        <div class="is-user-avatar">
-                            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
-                        </div>
-                        <div class="is-user-name"><span>John Doe</span></div>
-                        <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-                    </a>
-                    <div class="navbar-dropdown">
-                        <a href="profile.html" class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-account"></i></span>
-                            <span>My Profile</span>
-                        </a>
-                        <a class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-settings"></i></span>
-                            <span>Settings</span>
-                        </a>
-                        <a class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-email"></i></span>
-                            <span>Messages</span>
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            <span class="icon"><i class="mdi mdi-logout"></i></span>
-                            <span>Log Out</span>
-                        </a>
-                    </div>
-                </div>
-                <a href="https://justboil.me/bulma-admin-template/free-html-dashboard/" title="About" class="navbar-item has-divider is-desktop-icon-only">
-                    <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
-                    <span>About</span>
-                </a>
-                <a title="Log out" class="navbar-item is-desktop-icon-only">
+                <a title="Log out" class="navbar-item is-desktop-icon-only" href="<?= KOI_BBS_URL ?>/logout.php">
                     <span class="icon"><i class="mdi mdi-logout"></i></span>
                     <span>Log out</span>
                 </a>
@@ -213,7 +155,7 @@ include_once('./_head.php');
                             </div>
                             <div class="level-item has-widget-icon">
                                 <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i
-                                            class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                                class="mdi mdi-account-multiple mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +177,7 @@ include_once('./_head.php');
                             </div>
                             <div class="level-item has-widget-icon">
                                 <div class="is-widget-icon"><span class="icon has-text-info is-large"><i
-                                            class="mdi mdi-cart-outline mdi-48px"></i></span>
+                                                class="mdi mdi-cart-outline mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -257,7 +199,7 @@ include_once('./_head.php');
                             </div>
                             <div class="level-item has-widget-icon">
                                 <div class="is-widget-icon"><span class="icon has-text-success is-large"><i
-                                            class="mdi mdi-finance mdi-48px"></i></span>
+                                                class="mdi mdi-finance mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
