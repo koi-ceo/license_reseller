@@ -39,11 +39,12 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
         <!--        </div>-->
     </div>
     <div class="columns">
-        <div class="content has-text-left">
+        <div class="content column">
             <p>
                 Copyright © 2024 KOI. All rights reserved.
             </p>
         </div>
+        <div class="content column"></div>
     </div>
 </footer>
 </body>

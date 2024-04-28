@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
+ * 상품 리스트
  * User: holic
  * Date: 2024-04-27
  */

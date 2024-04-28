@@ -125,10 +125,10 @@ $koi['description'] = $koi['description'] ?? "";
             <div class="navbar-item">
                 <div class="buttons">
                     <?php if (isset($member['mb_no']) && $member['mb_no']) { ?>
-                        <a class="button is-primary" href="<?= KOI_BBS_URL ?>/modify.php">
+                        <a class="button is-light" href="<?= KOI_BBS_URL ?>/modify.php">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<strong>내정보( <?= number_format($member['mb_point']) ?>P )</strong>
                         </a>
-                        <a class="button is-light" href="<?= KOI_SHOP_URL ?>/cart.php">
+                        <a class="button is-primary" href="<?= KOI_SHOP_URL ?>/cart.php">
                             <strong>장바구니</strong>&nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </a>
                     <?php } else { ?>
