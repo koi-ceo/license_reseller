@@ -616,4 +616,31 @@ function upload_file($srcfile, $destfile, $dir)
     return true;
 }
 
+function get_paging($write_pages, $cur_page, $total_page, $url, $add = "")
+{
+    //$url = preg_replace('#&amp;page=[0-9]*(&amp;page=)$#', '$1', $url);
+    $url = preg_replace('#(&amp;)?page=[0-9]*#', '', $url);
+    $url .= substr($url, -1) === '?' ? 'page=' : '&amp;page=';
+
+    $str = '';
+
+    $start_page = (((int)(($cur_page - 1) / $write_pages)) * $write_pages) + 1;
+    $end_page = $start_page + $write_pages - 1;
+
+    if ($end_page >= $total_page) $end_page = $total_page;
+
+    if ($total_page > 1) {
+        for ($k = $start_page; $k <= $end_page; $k++) {
+            if ($cur_page != $k)
+                $str .= '<a href="' . $url . $k . $add . '" class="pg_page">' . $k . '<span class="sound_only">페이지</span></a>' . PHP_EOL;
+            else
+                $str .= '<span class="sound_only">열린</span><strong class="pg_current">' . $k . '</strong><span class="sound_only">페이지</span>' . PHP_EOL;
+        }
+    }
+
+    if ($str)
+        return "<div class=\"notification\"><div class=\"level\">{$str}</div></div>";
+    else
+        return "";
+}
 ?>

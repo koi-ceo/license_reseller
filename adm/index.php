@@ -1,47 +1,140 @@
 <?php
 include_once('./_common.php');
-include_once('./_head.php');
+
+$adm_depth1 = 'Admin';
+$adm_depth2 = 'Dashboard';
 
 $member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
+$member_list = sql_query("select * from tbl_member ");
+
+include_once('./_head.php');
 ?>
 
-    <section class="section is-title-bar">
-        <div class="level">
-            <div class="level-left">
-                <div class="level-item">
-                    <ul>
-                        <li>Admin</li>
-                        <li>Dashboard</li>
-                    </ul>
+    <section class="hero is-hero-bar">
+        <div class="hero-body">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <h1 class="title">Duration Search</h1>
+                    </div>
                 </div>
-            </div>
-            <div class="level-right">
-                <div class="level-item">
-                    <div class="buttons is-right">
-                        <a href="https://github.com/vikdiesel/admin-one-bulma-dashboard" target="_blank" class="button is-primary">
-                            <span class="icon"><i class="mdi mdi-github-circle"></i></span>
-                            <span>GitHub</span>
-                        </a>
+                <div class="level-right">
+                    <div class="level-item">
+                        <input type="text" autocomplete="on" name="name" value="John Doe" class="input" required="">
+                        <input type="text" autocomplete="on" name="name" value="John Doe" class="input" required="">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="hero is-hero-bar">
-        <div class="hero-body">
-            <div class="level">
-                <div class="level-left">
-                    <div class="level-item"><h1 class="title">
-                            Dashboard
-                        </h1></div>
+    <section class="section is-main-section">
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        총 회원수
+                                    </h3>
+                                    <h1 class="title">
+                                        <?= number_format($member_cnt['cnt']) ?>
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="level-right" style="display: none;">
-                    <div class="level-item"></div>
+            </div>
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        이번달 가입
+                                    </h3>
+                                    <h1 class="title">
+                                        <?= number_format($member_cnt['cnt']) ?>
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        미처리주문
+                                    </h3>
+                                    <h1 class="title">
+                                        $7,770
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        미입금주문수
+                                    </h3>
+                                    <h1 class="title">
+                                        $7,770
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <div class="card-content">
+                        <div class="level is-mobile">
+                            <div class="level-item">
+                                <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        구매금액
+                                    </h3>
+                                    <h1 class="title">
+                                        $7,770
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="level-item has-widget-icon">
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    <section class="section is-main-section">
         <div class="tile is-ancestor">
             <div class="tile is-parent">
                 <div class="card tile is-child">

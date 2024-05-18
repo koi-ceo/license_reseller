@@ -13,10 +13,15 @@
 </head>
 <body>
 
-<script type="text/javascript" src="<?= KOI_ADMIN_URL ?>/js/main.js"></script>
+
 
 <div id="app">
     <nav id="navbar-main" class="navbar is-fixed-top">
+        <div class="navbar-brand">
+            <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
+                <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+            </a>
+        </div>
         <div class="navbar-brand is-right">
             <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
                 <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
@@ -31,5 +36,17 @@
             </div>
         </div>
     </nav>
+    <?php include_once(KOI_ADMIN_PATH . '/aside.php'); ?>
 
-<?php include_once(KOI_ADMIN_PATH . '/aside.php'); ?>
+    <section class="section is-title-bar">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <ul>
+                        <li><?= $adm_depth1 ?></li>
+                        <li><?= $adm_depth2 ?></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
