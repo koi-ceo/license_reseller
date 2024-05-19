@@ -1,10 +1,18 @@
+<?php
+if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
+
+$koi['title'] = $koi['title'] ?? strip_tags("KOI");
+$koi['title'] .= " | " . strip_tags("코이");
+$koi_head_title = $koi_head_title ?? strip_tags("코이");
+$koi['description'] = $koi['description'] ?? "";
+?>
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>코이 관리자</title>
+    <title><?= $koi['title'] ?></title>
 
     <link rel="stylesheet" href="<?= KOI_ADMIN_URL ?>/css/main.min.css">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -12,7 +20,6 @@
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 </head>
 <body>
-
 
 
 <div id="app">

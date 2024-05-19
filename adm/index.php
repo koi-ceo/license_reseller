@@ -2,15 +2,15 @@
 include_once('./_common.php');
 
 $adm_depth1 = '관리자';
-$adm_depth2 = '대시보드';
+$koi['title'] = $adm_depth2 = '대시보드';
 
 $member_cnt = sql_fetch("select count(mb_no) as cnt from tbl_member");
 $member_list = sql_query("select * from tbl_member ");
 
 include_once('./_head.php');
 ?>
-표는 가입율, 방문율, 구매율
-아래 표에, 최근 가입내역, 주문내역
+    표는 가입율, 방문율, 구매율
+    아래 표에, 최근 가입내역, 주문내역
     <section class="hero is-hero-bar">
         <div class="hero-body">
             <div class="level">

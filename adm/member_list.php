@@ -7,7 +7,7 @@
 
 include_once('./_common.php');
 $adm_depth1 = '관리자';
-$adm_depth2 = '회원리스트';
+$koi['title'] = $adm_depth2 = '회원리스트';
 include_once('./_head.php');
 
 $qstr = '';
