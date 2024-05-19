@@ -9,8 +9,8 @@ include_once('./_common.php');
 if (!isset($mb_no) || !$mb_no) {
     sweet_alert('잘못된 접근입니다.');
 }
-$adm_depth1 = 'Admin';
-$adm_depth2 = 'Member No. ' . $mb_no;
+$adm_depth1 = '관리자';
+$adm_depth2 = '회원상세 번호 : ' . $mb_no;
 include_once('./_head.php');
 ?>
 
@@ -20,7 +20,7 @@ include_once('./_head.php');
             <header class="card-header">
                 <p class="card-header-title">
                     <span class="icon"><i class="mdi mdi-ballot"></i></span>
-                    Member
+                    회원 기본정보
                 </p>
             </header>
             <div class="card-content">
@@ -139,7 +139,7 @@ include_once('./_head.php');
             <header class="card-header">
                 <p class="card-header-title">
                     <span class="icon"><i class="mdi mdi-ballot-outline default"></i></span>
-                    Company
+                    추가정보
                 </p>
             </header>
             <div class="card-content">
@@ -224,7 +224,7 @@ include_once('./_head.php');
             <header class="card-header">
                 <p class="card-header-title">
                     <span class="icon"><i class="mdi mdi-ballot-outline default"></i></span>
-                    Order
+                    구매정보
                 </p>
             </header>
             <div class="card-content">

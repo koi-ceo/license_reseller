@@ -6,8 +6,8 @@
  */
 
 include_once('./_common.php');
-$adm_depth1 = 'Admin';
-$adm_depth2 = 'Member List';
+$adm_depth1 = '관리자';
+$adm_depth2 = '회원리스트';
 include_once('./_head.php');
 
 $qstr = '';
@@ -41,7 +41,7 @@ $result = sql_query($sql);
             <header class="card-header">
                 <p class="card-header-title">
                     <span class="icon"><i class="mdi mdi-account-search"></i></span>
-                    Member
+                    회원검색
                 </p>
             </header>
             <form name="member_form" method="get">
@@ -68,7 +68,7 @@ $result = sql_query($sql);
                                 </div>
                                 <div class="control">
                                     <button type="submit" class="button is-info">
-                                        <span>Search</span>
+                                        <span>검색하기</span>
                                     </button>
                                 </div>
                             </div>
