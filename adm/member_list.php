@@ -54,7 +54,6 @@ $result = sql_query($sql);
                                         <div class="select is-fullwidth">
                                             <select name="sfl" id="sfl">
                                                 <option value="mb_email" <?= isset($sfl) && $sfl == 'mb_email' ? "selected='selected'" : "" ?>>회원이메일</option>
-                                                <option value="mb_name" <?= isset($sfl) && $sfl == 'mb_name' ? "selected='selected'" : "" ?>>회원명</option>
                                                 <option value="mb_hp" <?= isset($sfl) && $sfl == 'mb_hp' ? "selected='selected'" : "" ?>>휴대폰</option>
                                                 <option value="mb_company_num" <?= isset($sfl) && $sfl == 'mb_company_num' ? "selected='selected'" : "" ?>>사업자번호</option>
                                             </select>

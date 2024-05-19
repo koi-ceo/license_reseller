@@ -16,7 +16,7 @@
         <p class="menu-label">General</p>
         <ul class="menu-list">
             <li>
-                <a href="index.html" class="is-active router-link-active has-icon">
+                <a href="<?= KOI_ADMIN_URL ?>" class="is-active router-link-active has-icon">
                     <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
                     <span class="menu-item-label">Dashboard</span>
                 </a>
@@ -40,7 +40,7 @@
         <p class="menu-label">회원</p>
         <ul class="menu-list">
             <li>
-                <a href="tables.html" class="has-icon">
+                <a href="<?= KOI_ADMIN_URL ?>/member_list.php" class="has-icon">
                     <span class="icon"><i class="mdi mdi-table"></i></span>
                     <span class="menu-item-label">회원리스트</span>
                 </a>

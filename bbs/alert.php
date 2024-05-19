@@ -12,7 +12,7 @@ if ($error) {
 } else {
     $koi['title'] = "결과안내 페이지";
 }
-include_once(KOI_PATH . './head.sub.php');
+include_once(KOI_PATH . '/head.sub.php');
 
 $msg = isset($msg) ? strip_tags($msg) : '';
 $msg2 = $msg = str_replace("\\n", "<br>", $msg);

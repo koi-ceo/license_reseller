@@ -144,45 +144,6 @@ if (isset($_SESSION['ss_mb_id']) && $_SESSION['ss_mb_id']) { // 로그인중이�
             sql_query("insert into tbl_member_visit set mb_no = '{$member['mb_no']}', ip = '{$ip}', reg_date = '" . KOI_TIME_YMDHIS . "'");
         }
     }
-} else {
-    // 자동로그인 ---------------------------------------
-    // 회원아이디가 쿠키에 저장되어 있다면 (3.27)
-    if ($tmp_mb_id = get_cookie('ck_mb_id')) {
-//        f_set_login_event_ticket();
-        // 접속 로그 추가 20200914 holic
-        $ip = get_ip_address();
-        sql_query("insert into tbl_member_visit set mb_no = '{$member['mb_no']}', ip = '{$ip}', reg_date = '" . KOI_TIME_YMDHIS . "'");
-
-        $tmp_mb_id = substr(preg_replace("/[^a-zA-Z0-9_]*/", "", $tmp_mb_id), 0, 20);
-        // 최고관리자는 자동로그인 금지
-        if (strtolower($tmp_mb_id) != strtolower($config['cf_admin'])) {
-            $sql = " select mb_password, mb_intercept_date, mb_leave_date, mb_email_certify, mb_level from {$g5['member_table']} where mb_email = '{$tmp_mb_id}' ";
-            $row = sql_fetch($sql);
-            if ($row['mb_password'] && $row['mb_email_certify']) {
-                $key = md5($_SERVER['SERVER_SOFTWARE'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password']);
-                // 쿠키에 저장된 키와 같다면
-                $tmp_key = get_cookie('ck_auto');
-                if ($tmp_key === $key && $tmp_key) {
-                    // 차단, 탈퇴가 아니면
-                    if ($row['mb_intercept_date'] == '' && $row['mb_leave_date'] == '') {
-                        // 쿠키 expire 재설정
-                        set_cookie('ck_mb_id', $tmp_mb_id, 86400 * 9999);
-                        set_cookie('ck_auto', $key, 86400 * 9999);
-
-                        // 세션에 회원아이디를 저장하여 로그인으로 간주
-                        set_session('ss_mb_id', $tmp_mb_id);
-
-                        // 페이지를 재실행
-                        echo "<script type='text/javascript'> window.location.reload(); </script>";
-                        exit;
-                    }
-                }
-            }
-            // $row 배열변수 해제
-            unset($row);
-        }
-    }
-    // 자동로그인 end ---------------------------------------
 }
 
 $is_member = $is_guest = false;
