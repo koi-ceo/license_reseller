@@ -28,7 +28,7 @@ $sql = " select count(*) as cnt {$sql_common} {$sql_search} {$sql_order} ";
 $row = sql_fetch($sql);
 $total_count = $row['cnt'] ?? 0;
 
-$rows = 1; // 한 페이지에 보여줄 행의 수
+$rows = 10; // 한 페이지에 보여줄 행의 수
 $total_page = ceil($total_count / $rows);  // 전체 페이지 계산
 if (!isset($page) || $page < 1) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
@@ -97,13 +97,13 @@ $result = sql_query($sql);
                         <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
                             <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>이메일</th>
-                                <th>연락처</th>
-                                <th>사업자번호</th>
-                                <th>회사이메일</th>
-                                <th>포인트</th>
-                                <th>회원가입일</th>
+                                <th><?php echo subject_sort_link('mb_no', $qstr) ?>No.</a></th>
+                                <th><?php echo subject_sort_link('mb_email', $qstr) ?>이메일</a></th>
+                                <th><?php echo subject_sort_link('mb_hp', $qstr) ?>연락처</a></th>
+                                <th><?php echo subject_sort_link('mb_company_num', $qstr) ?>사업자번호</a></th>
+                                <th><?php echo subject_sort_link('mb_company_email', $qstr) ?>회사이메일</a></th>
+                                <th><?php echo subject_sort_link('mb_point', $qstr) ?>포인트</a></th>
+                                <th><?php echo subject_sort_link('mb_date', $qstr) ?>회원가입일</a></th>
                                 <th>단계</th>
                                 <th></th>
                             </tr>
@@ -128,14 +128,20 @@ $result = sql_query($sql);
                                     <td><?= $row['mb_point'] > 0 ? number_format($row['mb_point']) : 0; ?></td>
                                     <td><?= $row['mb_date'] ?></td>
                                     <td data-label="Progress" class="is-progress-cell">
-                                        <progress max="100" class="progress is-small is-primary" value="<?= $mb_step ?>"><?= $mb_step ?></progress>
+                                        <?php if ($row['mb_intercept_date']) { ?>
+                                            <progress max="100" class="progress is-small is-danger" value="100">100</progress>
+                                        <?php } else if ($row['mb_leave_date']) { ?>
+                                            <progress max="100" class="progress is-small is-black" value="100">100</progress>
+                                        <?php } else { ?>
+                                            <progress max="100" class="progress is-small is-primary" value="<?= $mb_step ?>"><?= $mb_step ?></progress>
+                                        <?php } ?>
                                     </td>
                                     <td class="is-actions-cell">
                                         <div class="buttons is-right">
-                                            <a class="button is-small is-primary" type="button">
+                                            <a class="button is-small is-primary" href="<?= KOI_ADMIN_URL ?>/member_form.php?mb_no=<?= $row['mb_no'] ?>">
                                                 <span class="icon"><i class="mdi mdi-eye"></i></span>
                                             </a>
-                                            <a class="button is-small is-danger jb-modal" data-target="sample-modal" type="button">
+                                            <a class="button is-small is-danger koi-modal" data-target="sample-modal" type="button">
                                                 <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                                             </a>
                                         </div>
@@ -146,29 +152,28 @@ $result = sql_query($sql);
                         </table>
                     </div>
                     <?php echo get_paging(15, $page, $total_page, '?' . $qstr . '&amp;page='); ?>
-                    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                        <a class="pagination-previous">Previous</a>
-                        <a class="pagination-next">Next page</a>
-                        <ul class="pagination-list">
-                            <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-                            <li><span class="pagination-ellipsis">…</span></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                            <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-                            <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-                            <li><span class="pagination-ellipsis">…</span></li>
-                            <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
     </section>
+
+    <div id="sample-modal" class="modal">
+        <div class="modal-background koi-modal-close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Confirm action</p>
+                <button class="delete koi-modal-close" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p>This will permanently delete <b>Some Object</b></p>
+                <p>This is sample modal</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button koi-modal-close">Cancel</button>
+                <button class="button is-danger koi-modal-close">Delete</button>
+            </footer>
+        </div>
+        <button class="modal-close is-large koi-modal-close" aria-label="close"></button>
+    </div>
 
 <?php include_once(KOI_ADMIN_PATH . '/_tail.php'); ?>

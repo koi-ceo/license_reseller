@@ -623,24 +623,72 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add = "")
     $url .= substr($url, -1) === '?' ? 'page=' : '&amp;page=';
 
     $str = '';
+    $previous = $cur_page > 1 ? ' <a class="pagination-previous" href="' . $url . ($cur_page - 1) . $add . '">Previous</a>' : '';
+    $next = $cur_page < $total_page ? ' <a class="pagination-next" href="' . $url . ($cur_page + 1) . $add . '">Next</a>' : '';
 
-    $start_page = (((int)(($cur_page - 1) / $write_pages)) * $write_pages) + 1;
-    $end_page = $start_page + $write_pages - 1;
+    $start_page = max($cur_page - 5, 1);
+    $end_page = min($cur_page + 5, $total_page);
 
-    if ($end_page >= $total_page) $end_page = $total_page;
+    if ($start_page > 1) {
+        $str .= '<li><a class="pagination-link" href="' . $url . 1 . $add . '">' . 1 . '</a></li>' . PHP_EOL;
+        $str .= '<li><span class="pagination-ellipsis">…</span></li>' . PHP_EOL;
+    }
 
     if ($total_page > 1) {
         for ($k = $start_page; $k <= $end_page; $k++) {
             if ($cur_page != $k)
-                $str .= '<a href="' . $url . $k . $add . '" class="pg_page">' . $k . '<span class="sound_only">페이지</span></a>' . PHP_EOL;
+                $str .= '<li><a class="pagination-link" href="' . $url . $k . $add . '">' . $k . '</a></li>' . PHP_EOL;
             else
-                $str .= '<span class="sound_only">열린</span><strong class="pg_current">' . $k . '</strong><span class="sound_only">페이지</span>' . PHP_EOL;
+                $str .= '<li><a class="pagination-link is-current" href="javascript:void(0);">' . $k . '</a></li>' . PHP_EOL;
         }
     }
 
-    if ($str)
-        return "<div class=\"notification\"><div class=\"level\">{$str}</div></div>";
-    else
+    if ($end_page < $total_page) {
+        $str .= '<li><span class="pagination-ellipsis">…</span></li>' . PHP_EOL;
+        $str .= '<li><a class="pagination-link" href="' . $url . $total_page . $add . '">' . $total_page . '</a></li>' . PHP_EOL;
+    }
+
+    if ($str) {
+        return '<nav class="pagination is-centered" role="navigation" aria-label="pagination">' . $previous . $next . "<ul class=\"pagination-list\">" . $str . '</ul></nav>';
+    } else {
         return "";
+    }
+}
+
+// 날짜, 조회수의 경우 높은 순서대로 보여져야 하므로 $flag 를 추가
+// $flag : asc 낮은 순서 , desc 높은 순서
+// 제목별로 컬럼 정렬하는 QUERY STRING
+function subject_sort_link($col, $query_string = '', $flag = 'asc')
+{
+    global $sst, $sod, $sfl, $stx, $page, $sca;
+
+    $q1 = "sst=$col";
+    if ($flag == 'asc') {
+        $q2 = 'sod=asc';
+        if ($sst == $col) {
+            if ($sod == 'asc') {
+                $q2 = 'sod=desc';
+            }
+        }
+    } else {
+        $q2 = 'sod=desc';
+        if ($sst == $col) {
+            if ($sod == 'desc') {
+                $q2 = 'sod=asc';
+            }
+        }
+    }
+
+    $arr_query = array();
+    $arr_query[] = $query_string;
+    $arr_query[] = $q1;
+    $arr_query[] = $q2;
+    $arr_query[] = 'sfl=' . $sfl;
+    $arr_query[] = 'stx=' . $stx;
+    $arr_query[] = 'sca=' . $sca;
+    $arr_query[] = 'page=' . $page;
+    $qstr = implode("&amp;", $arr_query);
+
+    return "<a href=\"{$_SERVER['SCRIPT_NAME']}?{$qstr}\">";
 }
 ?>

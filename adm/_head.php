@@ -18,12 +18,12 @@
 <div id="app">
     <nav id="navbar-main" class="navbar is-fixed-top">
         <div class="navbar-brand">
-            <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
+            <a class="navbar-item is-hidden-desktop koi-aside-mobile-toggle">
                 <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
             </a>
         </div>
         <div class="navbar-brand is-right">
-            <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
+            <a class="navbar-item is-hidden-desktop koi-navbar-menu-toggle" data-target="navbar-menu">
                 <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
             </a>
         </div>

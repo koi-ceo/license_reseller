@@ -15,7 +15,7 @@ Array.from(document.getElementsByClassName('menu is-menu-main')).forEach(el => {
 })
 
 /* Aside Mobile toggle */
-Array.from(document.getElementsByClassName('jb-aside-mobile-toggle')).forEach(el => {
+Array.from(document.getElementsByClassName('koi-aside-mobile-toggle')).forEach(el => {
   el.addEventListener('click', e => {
     const dropdownIcon = e.currentTarget
         .getElementsByClassName('icon')[0]
@@ -28,7 +28,7 @@ Array.from(document.getElementsByClassName('jb-aside-mobile-toggle')).forEach(el
 })
 
 /* NavBar menu mobile toggle */
-Array.from(document.getElementsByClassName('jb-navbar-menu-toggle')).forEach(el => {
+Array.from(document.getElementsByClassName('koi-navbar-menu-toggle')).forEach(el => {
   el.addEventListener('click', e => {
     const dropdownIcon = e.currentTarget
         .getElementsByClassName('icon')[0]
@@ -41,7 +41,7 @@ Array.from(document.getElementsByClassName('jb-navbar-menu-toggle')).forEach(el 
 })
 
 /* Modal: open */
-Array.from(document.getElementsByClassName('jb-modal')).forEach(el => {
+Array.from(document.getElementsByClassName('koi-modal')).forEach(el => {
   el.addEventListener('click', e => {
     const modalTarget = e.currentTarget.getAttribute('data-target')
 
@@ -51,7 +51,7 @@ Array.from(document.getElementsByClassName('jb-modal')).forEach(el => {
 });
 
 /* Modal: close */
-Array.from(document.getElementsByClassName('jb-modal-close')).forEach(el => {
+Array.from(document.getElementsByClassName('koi-modal-close')).forEach(el => {
   el.addEventListener('click', e => {
     e.currentTarget.closest('.modal').classList.remove('is-active')
     document.documentElement.classList.remove('is-clipped')
@@ -59,7 +59,7 @@ Array.from(document.getElementsByClassName('jb-modal-close')).forEach(el => {
 })
 
 /* Notification dismiss */
-Array.from(document.getElementsByClassName('jb-notification-dismiss')).forEach(el => {
+Array.from(document.getElementsByClassName('koi-notification-dismiss')).forEach(el => {
   el.addEventListener('click', e => {
     e.currentTarget.closest('.notification').classList.add('is-hidden')
   })

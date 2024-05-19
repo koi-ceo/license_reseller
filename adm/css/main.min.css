@@ -8122,6 +8122,8 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 
 .pagination {
     font-size: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     margin: -0.25rem
 }
 
