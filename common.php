@@ -154,5 +154,5 @@ if (isset($member['mb_no']) && $member['mb_no']) {
 } else {
     $is_guest = true;
     $member['mb_no'] = '';
-    $member['mb_level'] = 1; // 비회원의 경우 회원레벨을 가장 낮게 설정
+    $member['mb_level'] = 0; // 비회원의 경우 회원레벨을 가장 낮게 설정
 }

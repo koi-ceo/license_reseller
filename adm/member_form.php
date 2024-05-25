@@ -6,9 +6,6 @@
  */
 
 include_once('./_common.php');
-if (!isset($mb_no) || !$mb_no) {
-    sweet_alert('잘못된 접근입니다.');
-}
 $adm_depth1 = '관리자';
 $koi['title'] = $adm_depth2 = '회원상세 번호 : ' . $mb_no;
 include_once('./_head.php');
