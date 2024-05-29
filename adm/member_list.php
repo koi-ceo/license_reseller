@@ -137,7 +137,7 @@ $result = sql_query($sql);
                                     </td>
                                     <td class="is-actions-cell">
                                         <div class="buttons is-right">
-                                            <a class="button is-small is-primary" href="<?= KOI_ADMIN_URL ?>/member_form.php?mb_no=<?= $row['mb_no'] ?>">
+                                            <a class="button is-small is-primary" href="<?= KOI_ADMIN_URL ?>/member_form.php?w=u&mb_no=<?= $row['mb_no'] ?>">
                                                 <span class="icon"><i class="mdi mdi-eye"></i></span>
                                             </a>
                                             <a class="button is-small is-danger koi-modal" data-target="sample-modal" type="button">
