@@ -691,4 +691,11 @@ function subject_sort_link($col, $query_string = '', $flag = 'asc')
 
     return "<a href=\"{$_SERVER['SCRIPT_NAME']}?{$qstr}\">";
 }
+
+function get_email_address($email)
+{
+    preg_match("/[0-9a-z._-]+@[a-z0-9._-]{4,}/i", $email, $matches);
+    return $matches[0];
+}
+
 ?>

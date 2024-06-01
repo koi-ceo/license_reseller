@@ -10,7 +10,7 @@ include_once('./_common.php');
 if (isset($member) && $member['mb_no']) {
     $mb_company_num = isset($_POST['mb_company_num']) ? trim($_POST['mb_company_num']) : '';
     $mb_company_email = isset($_POST['mb_company_email']) ? trim($_POST['mb_company_email']) : '';
-    $mb_image = isset($_FILES['mb_image']) ? $_FILES['mb_image'] : '';
+    $mb_image = $_FILES['mb_image'] ?? '';
 
     if ($mb_company_num == '') {
         alert('사업자번호를 입력해주세요.');
@@ -27,6 +27,10 @@ if (isset($member) && $member['mb_no']) {
         $mb_image = mb_img_upload($_FILES['mb_image']['tmp_name'], $image_name, $it_img_dir);
         if (isset($mb_image['error']) && $mb_image['error']) {
             alert($mb_image['error']);
+        }
+        // delete old image
+        if ($member['mb_image']) {
+            @unlink($it_img_dir . '/' . $member['mb_image']);
         }
     }
 

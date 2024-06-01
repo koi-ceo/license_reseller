@@ -29,7 +29,7 @@ if (!isset($member) || !$member['mb_no']) {
                         <div class="field">
                             <label class="label has-text-white">사업자번호</label>
                             <div class="control">
-                                <input class="input is-medium" type="text" name="mb_company_num" id="mb_company_num" required="required" value="<?= $member['mb_company_num'] ?>">
+                                <input class="input is-medium" type="text" name="mb_company_num" id="mb_company_num" required="required" value="<?= $member['mb_company_num'] ?>" maxlength="10">
                             </div>
                         </div>
                         <div class="field">

@@ -15,7 +15,7 @@ if (!isset($w) || $w == '') {
     $custom_member['mb_email'] = $custom_member['mb_hp'] = $custom_member['mb_datetime'] = $custom_member['mb_login_ip'] = $custom_member['mb_email_certify'] = $custom_member['mb_intercept_date'] = $custom_member['mb_leave_date'] = $custom_member['mb_today_login'] = $custom_member['mb_memo'] = $custom_member['mb_company_email'] = $custom_member['mb_company_num'] = $custom_member['mb_image'] = '';
     $custom_member['mb_point'] = $custom_member['tot_earn_point'] = $custom_member['tot_visit_cnt'] = $custom_member['tot_od_cnt'] = $custom_member['tot_od_price'] = 0;
 } else {
-    $koi['title'] = $adm_depth2 = '회원상세 번호 : ' . $mb_no;
+    $koi['title'] = $adm_depth2 = '회원상세';
     $custom_member = sql_fetch("SELECT *, IFNULL((select sum(point) from tbl_point_earn where mb_no = mb.mb_no), 0) as tot_earn_point, IFNULL((select count(idx) from tbl_member_visit where mb_no = mb.mb_no), 0) as tot_visit_cnt, IFNULL((select count(od_id) from tbl_shop_order where mb_no = mb.mb_no and (od_status != '주문' or od_status != '취소')), 0) as tot_od_cnt, IFNULL((select sum(od_receipt_price) from tbl_shop_order where mb_no = mb.mb_no and (od_status != '주문' or od_status != '취소')), 0) as tot_od_price FROM tbl_member mb WHERE mb_no = '{$mb_no}'");
 }
 include_once('./_head.php');
@@ -215,7 +215,7 @@ include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
                             </div>
                             <div class="field">
                                 <p class="control is-expanded has-icons-left">
-                                    <input class="input" type="text" name="mb_company_num" value="<?= $custom_member['mb_company_num'] ?>" placeholder="사업자번호">
+                                    <input class="input" type="text" name="mb_company_num" value="<?= $custom_member['mb_company_num'] ?>" placeholder="사업자번호" maxlength="10">
                                     <span class="icon is-small is-left"><i class="mdi mdi-wallet-membership"></i></span>
                                 </p>
                             </div>
@@ -231,14 +231,14 @@ include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
                                             <span class="icon"><i class="mdi mdi-upload"></i></span>
                                             <span>파일 업로드</span>
                                         </a>
-                                        <input type="file" name="company_image" id="company_image">
+                                        <input type="file" name="mb_image" id="mb_image">
                                         <div class="field-label">
                                             <!-- Left empty for spacing -->
                                         </div>
                                         <?php if ($custom_member['mb_image']) { ?>
-                                            <a class="button is-success">
-                                                <span class="icon"><i class="mdi mdi-download"></i></span>
-                                                <span>파일 다운로드</span>
+                                            <a class="button is-success" href="./member_image_view.php?mb_no=<?= $mb_no ?>" onclick="return f_href_form(this.href);" target="_blank">
+                                                <span class="icon"><i class="mdi mdi-view-carousel"></i></span>
+                                                <span>파일 보기</span>
                                             </a>
                                         <?php } ?>
                                     </label>
@@ -304,6 +304,11 @@ include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
                 return false;
             }
             return true;
+        }
+
+        function f_href_form(href) {
+            window.open(href, 'win_view_image', 'left=0,top=0,scrollbars=1,resizable=1,location=0,width=800,height=600');
+            return false;
         }
     </script>
 
