@@ -5,6 +5,8 @@ $koi['title'] = $koi['title'] ?? strip_tags("KOI");
 $koi['title'] .= " | " . strip_tags("코이");
 $koi_head_title = $koi_head_title ?? strip_tags("코이");
 $koi['description'] = $koi['description'] ?? "";
+$adm_depth1 = $adm_depth1 ?? "";
+$adm_depth2 = $adm_depth2 ?? "";
 ?>
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
@@ -20,6 +22,9 @@ $koi['description'] = $koi['description'] ?? "";
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= KOI_JS_URL ?>/sweetalert2function.js"></script>
 
 
 <div id="app">

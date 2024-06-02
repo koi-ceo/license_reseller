@@ -43,6 +43,14 @@ $result = sql_query($sql);
                     <span class="icon"><i class="mdi mdi-account-search"></i></span>
                     회원검색
                 </p>
+                <div class="level-right">
+                    <div class="level-item">
+                        <a href="./member_form.php" class="button is-primary">
+                            <span class="icon"><i class="mdi mdi-account-plus"></i></span>
+                            <span>회원추가</span>
+                        </a>
+                    </div>
+                </div>
             </header>
             <form name="member_form" method="get">
                 <div class="card-content">
@@ -127,10 +135,10 @@ $result = sql_query($sql);
                                     <td><?= $row['mb_point'] > 0 ? number_format($row['mb_point']) : 0; ?></td>
                                     <td><?= $row['mb_date'] ?></td>
                                     <td data-label="Progress" class="is-progress-cell">
-                                        <?php if ($row['mb_intercept_date']) { ?>
-                                            <progress max="100" class="progress is-small is-danger" value="100">100</progress>
-                                        <?php } else if ($row['mb_leave_date']) { ?>
+                                        <?php if ($row['mb_intercept_date']) { // 차단 ?>
                                             <progress max="100" class="progress is-small is-black" value="100">100</progress>
+                                        <?php } else if ($row['mb_leave_date']) { // 탈퇴 ?>
+                                            <progress max="100" class="progress is-small is-danger" value="100">100</progress>
                                         <?php } else { ?>
                                             <progress max="100" class="progress is-small is-primary" value="<?= $mb_step ?>"><?= $mb_step ?></progress>
                                         <?php } ?>
@@ -140,9 +148,15 @@ $result = sql_query($sql);
                                             <a class="button is-small is-primary" href="<?= KOI_ADMIN_URL ?>/member_form.php?w=u&mb_no=<?= $row['mb_no'] ?>">
                                                 <span class="icon"><i class="mdi mdi-eye"></i></span>
                                             </a>
-                                            <a class="button is-small is-danger koi-modal" data-target="sample-modal" type="button">
-                                                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                            </a>
+                                            <?php if ($row['mb_intercept_date'] || $row['mb_leave_date']) { ?>
+                                                <a class="button is-small is-info modify_member" type="button" data-mb_no="<?= $row['mb_no'] ?>" data-action="initial">
+                                                    <span class="icon"><i class="mdi mdi-refresh"></i></span>
+                                                </a>
+                                            <?php } else { ?>
+                                                <a class="button is-small is-danger modify_member" type="button" data-mb_no="<?= $row['mb_no'] ?>" data-action="delete">
+                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                                                </a>
+                                            <?php } ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -156,7 +170,7 @@ $result = sql_query($sql);
         </div>
     </section>
 
-    <div id="sample-modal" class="modal">
+    <div id="mb-modal" class="modal">
         <div class="modal-background koi-modal-close"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -174,5 +188,20 @@ $result = sql_query($sql);
         </div>
         <button class="modal-close is-large koi-modal-close" aria-label="close"></button>
     </div>
+
+    <script>
+        $(document).on("click", ".modify_member", function () {
+            let action = $(this).data('action');
+            let msg = "블락(탈퇴) 취소 하시겠습니까?";
+            if (action === 'delete') {
+                msg = "로그인 블락 하시겠습니까?";
+            }
+            let param = {
+                mb_no : $(this).data('mb_no'),
+                action: action
+            };
+            sweetConfirm(msg, "member_list_update.php", param);
+        });
+    </script>
 
 <?php include_once(KOI_ADMIN_PATH . '/_tail.php'); ?>

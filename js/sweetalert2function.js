@@ -103,7 +103,7 @@ function sweet_alert(msg, type, icon = "success", msg2 = '', url, confirmButtonT
     }
 }
 
-function sweetConfirm(msg, url) {
+function sweetConfirm(msg, url, param = null) {
     return new Promise(function () {
         Swal.fire({
             html              : msg,
@@ -115,7 +115,23 @@ function sweetConfirm(msg, url) {
             cancelButtonText  : '취소'
         }).then((result) => {
             if (result.isConfirmed) {
-                location.href = url
+                let form = document.createElement('form');
+                form.method = 'POST';
+                form.action = url;
+
+                // 파라미터를 form에 추가
+                for (let key in param) {
+                    if (param.hasOwnProperty(key)) {
+                        let hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = key;
+                        hiddenField.value = param[key];
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
             } else if (result.isDismissed) {
                 return false;
             } else {
@@ -161,57 +177,4 @@ function sweetConfirmNoIcon(msg, url = null, url2 = null, btn_msg = null, btn_ms
             }
         });
     });
-}
-
-function tavis_alert(msg, type, url) {
-    if (type === 1) { // 확인버튼 창
-        Swal.fire({
-            html              : '<span class="tavis_popup_logo"></span>' + msg,
-            confirmButtonColor: '#ECECEC',
-            confirmButtonText : '확인',
-            customClass       : "tavis_popup"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if (url) {
-                    document.location.replace(url);
-                }
-            }
-        });
-    } else if (type === 2) { // 취소, 확인
-        Swal.fire({
-            html              : '<span class="tavis_popup_logo"></span>' + msg,
-            showCancelButton  : true,
-            confirmButtonColor: '#ECECEC',
-            cancelButtonColor : '#ECECEC',
-            customClass       : "tavis_popup type2",
-            confirmButtonText : '확인',
-            cancelButtonText  : '취소',
-            reverseButtons    : true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Swal.fire({
-                //     html:'<div class="msg_box font-size-17"><div class="alarm_box"><span class="alarm"></span>&nbsp;알림</div>'+msg+'</div>',
-                //     customClass: "tavis_popup type4",
-                //     timer            : 1000,
-                // });
-                document.location.replace(url);
-            } else {
-                return false;
-            }
-        });
-    } else if (type === 3) { // 닫기있는 알림창
-        Swal.fire({
-            html           : '<div class="logo_bg"><span class="tavis_popup_logo"></span></div><div class="alarm_box"><span class="alarm"></span>&nbsp;알림</div><div class="msg_box font-size-17">' + msg + '</div>',
-            showCloseButton: true,
-            customClass    : "tavis_popup type3",
-            position       : 'top',
-        })
-    } else if (type === 4) { // 닫기없는 알림창
-        Swal.fire({
-            html       : '<div class="msg_box font-size-17"><div class="alarm_box"><span class="alarm"></span>&nbsp;알림</div>' + msg + '</div>',
-            customClass: "tavis_popup type4",
-            position   : 'top',
-            timer      : 1000,
-        })
-    }
 }

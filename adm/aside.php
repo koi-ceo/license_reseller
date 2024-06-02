@@ -25,13 +25,13 @@
         <p class="menu-label">배너</p>
         <ul class="menu-list">
             <li>
-                <a href="tables.html" class="has-icon">
+                <a href="<?= KOI_ADMIN_URL ?>/banner_list.php?position=1" class="has-icon">
                     <span class="icon"><i class="mdi mdi-page-first"></i></span>
                     <span class="menu-item-label">메인</span>
                 </a>
             </li>
             <li>
-                <a href="forms.html" class="has-icon">
+                <a href="<?= KOI_ADMIN_URL ?>/banner_list.php?position=2" class="has-icon">
                     <span class="icon"><i class="mdi mdi-page-last"></i></span>
                     <span class="menu-item-label">하단</span>
                 </a>
