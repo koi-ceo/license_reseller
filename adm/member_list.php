@@ -51,6 +51,9 @@ $result = sql_query($sql);
                         </a>
                     </div>
                 </div>
+                <a href="./member_list.php" class="card-header-icon">
+                    <span class="icon"><i class="mdi mdi-reload"></i></span>
+                </a>
             </header>
             <form name="member_form" method="get">
                 <div class="card-content">

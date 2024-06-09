@@ -602,7 +602,7 @@ function mb_img_upload($srcfile, $filename, $dir)
 
     upload_file($srcfile, $filename, $dir);
 
-    $file = str_replace(KOI_DATA_PATH . '/member/', '', $dir . '/' . $filename);
+    $file = str_replace($dir . "/", '', $dir . '/' . $filename);
 
     return $file;
 }

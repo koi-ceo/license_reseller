@@ -20,8 +20,8 @@ if (!isset($w) || $w == '') {
         'alt_tag' => '',
         'title_tag' => '',
         'link' => '',
-        'visible_start' => date('Y-m-d'),
-        'visible_end' => date('Y-m-d', strtotime('+1 month')),
+        'visible_start' => date('Y-m-d H:i'),
+        'visible_end' => date('Y-m-d H:i', strtotime('+1 month')),
         'reg_date' => date('Y-m-d H:i:s'),
         'last_modify' => date('Y-m-d H:i:s')
     ];
@@ -29,138 +29,245 @@ if (!isset($w) || $w == '') {
     $koi['title'] = $adm_depth2 = '배너수정';
     $idx = $idx ?? '';
     if (!$idx) alert('잘못된 접근입니다.');
-    $sql = "select * from tbl_banner where idx = '{$idx}'";
+    $sql = "select *, LEFT(visible_start, 16) as visible_start, LEFT(visible_end, 16) as visible_end from tbl_banner where idx = '{$idx}'";
     $banner = sql_fetch($sql);
 }
 include_once('./_head.php');
 include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
 ?>
-<section class="section is-main-section">
-    <div class="card has-table">
-        <header class="card-header">
-            <p class="card-header-title">
-                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-                Banner
-            </p>
-            <div class="level-right">
-                <div class="level-item">
-                    <a href="./banner_list.php" class="button is-primary">
-                        <span class="icon"><i class="mdi mdi-format-list-bulleted"></i></span>
-                        <span>목록</span>
-                    </a>
+    <section class="section is-main-section">
+        <form name="fbanner" id="fbanner" action="./banner_form_update.php" onsubmit="return fbanner_submit(this);" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="w" value="<?= $w ?>">
+            <input type="hidden" name="idx" value="<?= $idx ?>">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+                        배너
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">타이틀</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left has-icons-right">
+                                    <input class="input" name="banner_title" type="text" placeholder="배너 타이틀" value="<?= $banner['banner_title'] ?>">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="label">디스크립션</label></div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left">
+                                    <input class="input" name="banner_description" type="text" placeholder="디스크립션" value="<?= $banner['banner_description'] ?>">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="label">배너이미지</label></div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field file">
+                                    <label class="upload control">
+                                        <a class="button is-info">
+                                            <span class="icon"><i class="mdi mdi-upload"></i></span>
+                                            <span>파일 업로드</span>
+                                        </a>
+                                        <input type="file" name="image" id="image">
+                                        <div class="field-label">
+                                            <!-- Left empty for spacing -->
+                                        </div>
+                                        <?php if ($banner['image']) { ?>
+                                            <a class="button is-success" href="./banner_image_view.php?idx=<?= $idx ?>" onclick="return f_href_form(this.href);" target="_blank">
+                                                <span class="icon"><i class="mdi mdi-view-carousel"></i></span>
+                                                <span>파일 보기</span>
+                                            </a>
+                                        <?php } ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">배너 링크</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left has-icons-right">
+                                    <input class="input" type="text" name="link" value="<?= $banner['link'] ?>" placeholder="full link">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Alt Tag</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left has-icons-right">
+                                    <input class="input" type="text" name="alt_tag" value="<?= $banner['alt_tag'] ?>" placeholder="alt tag">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Title Tag</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left has-icons-right">
+                                    <input class="input" type="text" name="title_tag" value="<?= $banner['title_tag'] ?>" placeholder="title tag">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Left empty for spacing -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span>저장하기</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">노출위치</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field is-narrow">
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="position">
+                                            <option value="1">메인</option>
+                                            <option value="2">하단</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">우선순위(낮을수록 높음)</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field is-narrow">
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="priority">
+                                            <?php for ($i = 1; $i <= 100; $i++) { ?>
+                                                <option value="<?= $i ?>"><?= $i ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">노출시작일시</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" id="visible_start" name="visible_start" type="datetime" value="<?= $banner['visible_start'] ?>" placeholder="노출시작일시">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">노출종료일시</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" name="visible_end" type="datetime" value="<?= $banner['visible_end'] ?>" placeholder="노출종료일시">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php if ($w == 'u') { ?>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">등록일시</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-warning" type="text" value="<?= $banner['reg_date'] ?>" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">최종수정일시</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-warning" type="text" value="<?= $banner['last_modify'] ?>" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Left empty for spacing -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span>저장하기</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </header>
-        <div class="card-content">
-            <form name="fitemform" method="post" action="./banner_form_update.php" enctype="multipart/form-data">
-                <input type="hidden" name="w" value="<?php echo $w; ?>">
-                <input type="hidden" name="idx" value="<?php echo $idx; ?>">
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">노출기간</label>
-                    </div>
-                    <div class="field-body is-narrow">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input type="text" class="input" name="visible_start" id="visible_start" value="<?php echo $banner['visible_start']; ?>" placeholder="시작일" required>
-                            </p>
-                            <p class="control">
-                                <a class="button is-static">~</a>
-                            </p>
-                            <p class="control is-expanded">
-                                <input type="text" class="input" name="visible_end" id="visible_end" value="<?php echo $banner['visible_end']; ?>" placeholder="종료일" required>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">배너이미지</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input type="file" class="input" name="banner_image" id="banner_image" accept="image/*" <?php echo $w == 'u' ? '' : 'required'; ?>>
-                            </p>
-                            <?php if ($w == 'u') { ?>
-                                <p class="control">
-                                    <a href="<?php echo $banner['banner_image']; ?>" target="_blank" class="button is-primary">
-                                        <span class="icon"><i class="mdi mdi-image"></i></span>
-                                        <span>이미지보기</span>
-                                    </a>
-                                </p>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">우선순위</label>
-                    </div>
-                    <div class="field-body is-narrow">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input type="number" class="input" name="priority" id="priority" value="<?php echo $banner['priority']; ?>" required>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">링크</label>
-                    </div>
-                    <div class="field-body is-narrow">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input type="text" class="input" name="link" id="link" value="<?php echo $banner['link']; ?>" required>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">등록일시</label>
-                    </div>
-                    <div class="field-body is-narrow">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input type="text" class="input" name="reg_date" id="reg_date" value="<?php echo $banner['reg_date']; ?>" readonly>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">최종수정일시</label>
-                    </div>
-                    <div class="field-body is-narrow">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input type="text" class="input" name="last_modify" id="last_modify" value="<?php echo $banner['last_modify']; ?>" readonly>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-horizontal">
-                    <div class="field-label"></div>
-                    <div class="field-body is-narrow">
-                        <div class="field is-grouped">
-                            <p class="control">
-                                <button type="submit" class="button is-primary">
-                                    <span class="icon"><i class="mdi mdi-check"></i></span>
-                                    <span>저장</span>
-                                </button>
-                            </p>
-                            <p class="control">
-                                <button type="button" class="button is-danger" onclick="history.back();">
-                                    <span class="icon"><i class="mdi mdi-close"></i></span>
-                                    <span>취소</span>
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
+        </form>
+    </section>
+
+    <script>
+        function fbanner_submit(f) {
+            if (!f.image.value.match(/\.(gif|jpe?g|png)$/i) && f.image.value) {
+                sweet_alert('업로드는 이미지 파일만 가능합니다.', 1);
+                return false;
+            }
+            return true;
+        }
+
+        function f_href_form(href) {
+            window.open(href, 'win_view_image', 'left=0,top=0,scrollbars=1,resizable=1,location=0,width=800,height=600');
+            return false;
+        }
+    </script>
+
+<?php include_once(KOI_ADMIN_PATH . '/_tail.php'); ?>
