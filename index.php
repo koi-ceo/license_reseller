@@ -11,7 +11,7 @@ $banner_list = sql_query("select * from tbl_banner where position='1' and '" . K
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <?php while ($banner = sql_fetch_array($banner_list)) { ?>
-                    <div class="swiper-slide"><img src="<?= KOI_DATA_URL ?>/banner/<?= $banner['image'] ?>" alt="<?= $banner['alt_tag'] ?>" title="<?= $banner['title_tag'] ?>"></div>
+                    <div class="swiper-slide"><img src="<?= KOI_DATA_URL . "/banner/" . $banner['image'] ?>" alt="<?= $banner['alt_tag'] ?>" title="<?= $banner['title_tag'] ?>"></div>
                 <?php } ?>
             </div>
             <div class="swiper-pagination"></div>
