@@ -2,6 +2,7 @@
 include_once('./_common.php');
 include_once "./head.php";
 
+$banner_list = sql_query("select * from tbl_banner where position='1' and '" . KOI_TIME_YMDHIS . "' between visible_start and visible_end order by priority asc");
 ?>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -9,8 +10,9 @@ include_once "./head.php";
     <section class="hero is-large">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/img/test1.jpg" alt="image 1"></div>
-                <div class="swiper-slide"><img src="/img/test2.jpg" alt="image 2"></div>
+                <?php while ($banner = sql_fetch_array($banner_list)) { ?>
+                    <div class="swiper-slide"><img src="<?= KOI_DATA_URL ?>/banner/<?= $banner['image'] ?>" alt="<?= $banner['alt_tag'] ?>" title="<?= $banner['title_tag'] ?>"></div>
+                <?php } ?>
             </div>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-next"></div>
