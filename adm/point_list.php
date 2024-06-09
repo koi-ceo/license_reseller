@@ -51,6 +51,14 @@ $result = sql_query($sql);
                     <span class="icon"><i class="mdi mdi-account-search"></i></span>
                     회원검색
                 </p>
+                <div class="level-right">
+                    <div class="level-item">
+                        <a href="./point_form.php" class="button is-primary">
+                            <span class="icon"><i class="mdi mdi-account-plus"></i></span>
+                            <span>포인트추가</span>
+                        </a>
+                    </div>
+                </div>
                 <a href="./point_list.php" class="card-header-icon">
                     <span class="icon"><i class="mdi mdi-reload"></i></span>
                 </a>
@@ -108,7 +116,7 @@ $result = sql_query($sql);
                         <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
                             <thead>
                             <tr>
-                                <th><?php echo subject_sort_link('reg_date', $qstr) ?>No.</a></th>
+                                <th><?php echo subject_sort_link('reg_date', $qstr) ?>회원번호</a></th>
                                 <th><?php echo subject_sort_link('mb_email', $qstr) ?>이메일</a></th>
                                 <th><?php echo subject_sort_link('mb_hp', $qstr) ?>연락처</a></th>
                                 <th><?php echo subject_sort_link('mb_company_num', $qstr) ?>사업자번호</a></th>
