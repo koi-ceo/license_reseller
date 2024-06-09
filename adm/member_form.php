@@ -16,7 +16,7 @@ if (!isset($w) || $w == '') {
     $custom_member['mb_point'] = $custom_member['tot_earn_point'] = $custom_member['tot_visit_cnt'] = $custom_member['tot_od_cnt'] = $custom_member['tot_od_price'] = 0;
 } else {
     $koi['title'] = $adm_depth2 = '회원상세';
-    $custom_member = sql_fetch("SELECT *, IFNULL((select sum(point) from tbl_point_earn where mb_no = mb.mb_no), 0) as tot_earn_point, IFNULL((select count(idx) from tbl_member_visit where mb_no = mb.mb_no), 0) as tot_visit_cnt, IFNULL((select count(od_id) from tbl_shop_order where mb_no = mb.mb_no and (od_status != '주문' or od_status != '취소')), 0) as tot_od_cnt, IFNULL((select sum(od_receipt_price) from tbl_shop_order where mb_no = mb.mb_no and (od_status != '주문' or od_status != '취소')), 0) as tot_od_price FROM tbl_member mb WHERE mb_no = '{$mb_no}'");
+    $custom_member = sql_fetch("SELECT *, LEFT(mb_intercept_date, 16) as mb_intercept_date, IFNULL((select sum(point) from tbl_point_earn where mb_no = mb.mb_no), 0) as tot_earn_point, IFNULL((select count(idx) from tbl_member_visit where mb_no = mb.mb_no), 0) as tot_visit_cnt, IFNULL((select count(od_id) from tbl_shop_order where mb_no = mb.mb_no and (od_status != '주문' or od_status != '취소')), 0) as tot_od_cnt, IFNULL((select sum(od_receipt_price) from tbl_shop_order where mb_no = mb.mb_no and (od_status != '주문' or od_status != '취소')), 0) as tot_od_price FROM tbl_member mb WHERE mb_no = '{$mb_no}'");
 }
 include_once('./_head.php');
 include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
@@ -102,7 +102,7 @@ include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" name="mb_intercept_date" type="date" value="<?= $custom_member['mb_intercept_date'] ?>" placeholder="차단일시">
+                                    <input class="input" name="mb_intercept_date" type="datetime_init" value="<?= $custom_member['mb_intercept_date'] ?>" placeholder="차단일시">
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ include_once(KOI_PLUGIN_PATH . '/jquery-ui/datepicker.php');
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" name="mb_leave_date" type="date" value="<?= $custom_member['mb_leave_date'] ?>" placeholder="탈퇴일시">
+                                    <input class="input" name="mb_leave_date" type="date_init" value="<?= $custom_member['mb_leave_date'] ?>" placeholder="탈퇴일시">
                                 </div>
                             </div>
                         </div>

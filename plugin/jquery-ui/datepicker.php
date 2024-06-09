@@ -26,10 +26,35 @@ if (!defined('_KOI_')) exit; // 개별 페이지 접근 불가
             cancelLabel  : '취소'
         });
 
-        let calendars_date = bulmaCalendar.attach('[type="date"]', {
+        let calendars_datetime1 = bulmaCalendar.attach('[type="datetime_init"]', {
             dateFormat   : 'yyyy-MM-dd',
             showButtons  : true,
+            lang         : 'ko',
+            validateLabel: '확인',
+            todayLabel   : '오늘',
+            clearLabel   : '초기화',
+            cancelLabel  : '취소'
+        });
+
+        let calendars_date = bulmaCalendar.attach('[type="date"]', {
+            dateFormat   : 'yyyy-MM-dd',
+            type         : 'date',
+            enableTime   : false,
+            showButtons  : true,
             startDate    : new Date(),
+            lang         : 'ko',
+            validateLabel: '확인',
+            todayLabel   : '오늘',
+            clearLabel   : '초기화',
+            cancelLabel  : '취소'
+        });
+
+        let calendars_date1 = bulmaCalendar.attach('[type="date_init"]', {
+            dateFormat   : 'yyyy-MM-dd',
+            type         : 'date',
+            enableTime   : false,
+            time         : false,
+            showButtons  : true,
             lang         : 'ko',
             validateLabel: '확인',
             todayLabel   : '오늘',
