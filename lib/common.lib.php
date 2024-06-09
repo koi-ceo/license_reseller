@@ -698,4 +698,218 @@ function get_email_address($email)
     return $matches[0];
 }
 
+// 포인트 적립
+function `f_po`int_earn($mb_no, $point, $contents, $type, $expire_date, $od_id = '', $recommend_mb_no = '')
+{
+    global $g5;
+    $custom_member = sql_fetch("select mb_no, mb_point from {$g5['member_table']} where mb_no = '{$mb_no}'");
+    if (!$custom_member['mb_no'] || $custom_member['mb_no'] == '') {
+        return 0;
+    }
+    if ($type == '2') { // 주문
+        if (!$od_id) {
+            return 0;
+        }
+    } else if ($type == '3') { // 회원가입.
+        $isset_check = sql_fetch("select idx from tbl_point_earn where mb_no = '{$mb_no}' and type = '3'");
+        if ($isset_check['idx']) {
+            return 0;
+        }
+    } else if ($type == '4') { // 로그인
+        $isset_check = sql_fetch("select idx from tbl_point_earn where mb_no = '{$mb_no}' and type = '4' and date_format(reg_date, '%Y-%m-%d') = '" . G5_TIME_YMD . "'");
+        if ($isset_check['idx']) {
+            return 0;
+        }
+    }
+    $expire_date = date("Y-m-d", strtotime("+{$expire_date} day"));
+    $sum_point = $custom_member['mb_point'] + $point;
+    $sql = "insert into tbl_point_earn
+                  set mb_no = '{$mb_no}',
+                      od_id = '{$od_id}',
+                      recommend_mb_no = '{$recommend_mb_no}',
+                      point = '{$point}',
+                      contents = '{$contents}',
+                      type = '{$type}',
+                      sum_point = '{$sum_point}',
+                      reg_date = '" . G5_TIME_YMDHIS . "',
+                      expire_date = '{$expire_date}'";
+    sql_query($sql);
+
+    // 회원db 포인트 업데이트
+    sql_query("update {$g5['member_table']} set mb_point = '{$sum_point}' where mb_no = '{$mb_no}'");
+    return true;
+}
+
+// 포인트 사용
+function f_point_use($mb_no, $point, $contents, $od_id = '')
+{
+    global $g5;
+    $custom_member = sql_fetch("select mb_no, mb_point from {$g5['member_table']} where mb_no = '{$mb_no}'");
+    if (!$custom_member['mb_no'] || $custom_member['mb_no'] == '') {
+        return 0;
+    }
+    if ($custom_member['mb_point'] < $point) {
+        alert("보유포인트보다 사용포인트가 더 큽니다.", G5_URL);
+    }
+
+    // 포인트 UPDATE
+    $sql = " update g5_member set mb_point = mb_point - '$point' where mb_no = '{$custom_member['mb_no']}' ";
+    sql_query($sql);
+
+    // 포인트 사용
+    $contents = addslashes(clean_xss_tags(trim($contents)));
+    $type = '0';
+    if ($contents == '포인트 소멸') {
+        $type = '1';
+    }
+    $sum_point = $custom_member['mb_point'] - $point;
+    $sql = " insert into tbl_point_use
+                set mb_no = '{$custom_member['mb_no']}',
+                    od_id = '{$od_id}',
+                    point = '$point',
+                    contents = '{$contents}',
+                    type = '{$type}',
+                    sum_point = '{$sum_point}',
+                    reg_date = '" . G5_TIME_YMDHIS . "'";
+    sql_query($sql);
+    $use_seq = sql_insert_id();
+
+    $point_earn = sql_query("select * from tbl_point_earn where mb_no='{$custom_member['mb_no']}' and status='1' order by expire_date asc, reg_date asc");
+    $flag = true;
+    while ($row = sql_fetch_array($point_earn)) {
+        if ($flag) { // 처음에서만, 기 포인트 차감 내역 조회
+            $point_cal_total = sql_fetch("select sum(point) as sum_point from tbl_point_cal where earn_idx='{$row['idx']}'");
+            $flag = false;
+            if ($point < $row['point'] - $point_cal_total['sum_point']) { // 사용포인트 < 남은 포인트
+                // 차감 계산
+                $sql = " insert into tbl_point_cal
+                         set earn_idx = '{$row['idx']}',
+                         use_idx = '$use_seq',
+                         point = '{$point}'";
+                sql_query($sql);
+                $point = 0;
+            } else if ($point == ($row['point'] - $point_cal_total['sum_point'])) { // 사용포인트 == 적립포인트 적립테이블에 사용불가능으로 상태 변경
+                // 차감 계산
+                $sql = " insert into tbl_point_cal
+                         set earn_idx = '{$row['idx']}',
+                         use_idx = '$use_seq',
+                         point = '{$point}'";
+                sql_query($sql);
+                // 적립 테이블, 사용불가 처리
+                $sql = " update tbl_point_earn set status = '0' where idx = '{$row['idx']}' ";
+                sql_query($sql);
+                $point = 0;
+            } else { // 사용포인트 > 적립포인트,  적립테이블에 사용불가능으로 상태 변경
+                $remain = $row['point'] - $point_cal_total['sum_point'];
+                $sql = " insert into tbl_point_cal
+                         set earn_idx = '{$row['idx']}',
+                         use_idx = '$use_seq',
+                         point = '{$remain}'";
+                sql_query($sql);
+                // 적립 테이블, 사용불가 처리
+                $sql = " update tbl_point_earn set status = '0' where idx = '{$row['idx']}' ";
+                sql_query($sql);
+                $point -= ($row['point'] - $point_cal_total['sum_point']);
+            }
+        } else { // 조회 필요없이 차감 계산
+            if ($point < $row['point']) { // 사용포인트 < 적립포인트
+                $sql = " insert into tbl_point_cal
+                         set earn_idx = '{$row['idx']}',
+                         use_idx = '$use_seq',
+                         point = '{$point}'";
+                sql_query($sql);
+                $point = 0;
+            } else if ($point == $row['point']) { // 사용포인트 == 적립포인트
+                // 차감 계산
+                $sql = " insert into tbl_point_cal
+                         set earn_idx = '{$row['idx']}',
+                         use_idx = '$use_seq',
+                         point = '{$point}'";
+                sql_query($sql);
+                // 적립 테이블, 사용불가 처리
+                $sql = " update tbl_point_earn set status = '0' where idx = '{$row['idx']}' ";
+                sql_query($sql);
+                $point = 0;
+            } else { // 사용포인트 > 적립포인트
+                $sql = " insert into tbl_point_cal
+                         set earn_idx = '{$row['idx']}',
+                         use_idx = '$use_seq',
+                         point = '{$row['point']}'";
+                sql_query($sql);
+                // 적립 테이블, 사용불가 처리
+                $sql = " update tbl_point_earn set status = '0' where idx = '{$row['idx']}' ";
+                sql_query($sql);
+                $point -= $row['point'];
+            }
+        }
+        if ($point == 0) {
+            break;
+        }
+    }
+    return true;
+}
+
+// 포인트 소멸
+function f_point_expire()
+{
+    global $member;
+    $sum = sql_fetch("
+                            SELECT    sum(point) as earn_point, sum(cal_point) as cal_point
+                            FROM      (
+                                             SELECT idx, point
+                                             FROM   tbl_point_earn
+                                             WHERE  status = '1' AND expire_date <= '" . G5_TIME_YMD . "' AND mb_no = '{$member['mb_no']}') earn
+                            LEFT JOIN
+                                      (
+                                               SELECT   earn_idx, sum(point) AS cal_point
+                                               FROM     tbl_point_cal
+                                               GROUP BY earn_idx) cal
+                            ON        cal.earn_idx=earn.idx");
+    $expire_point = $sum['earn_point'] - $sum['cal_point'];
+    if ($expire_point > 0) {
+        $expire_result = sql_query("SELECT * 
+                                                 FROM   tbl_point_earn 
+                                                 WHERE  status = '1' 
+                                                 AND    expire_date <= '" . G5_TIME_YMD . "'
+                                                 AND    mb_no='{$member['mb_no']}'");
+        sql_query("insert into tbl_point_use set mb_no='{$member['mb_no']}', point='{$expire_point}', contents='포인트 소멸', type='1', reg_date = '" . G5_TIME_YMDHIS . "'");
+        $use_idx = sql_insert_id();
+        $expire_point_tot = 0;
+        while ($row = sql_fetch_array($expire_result)) {
+            $cal_point = sql_fetch("select sum(point) as cal_point from tbl_point_cal where earn_idx = '{$row['idx']}'");
+            if ($cal_point['cal_point'] > 0) {
+                $expire_point = ($row['point'] - $cal_point['cal_point']);
+            } else {
+                $expire_point = $row['point'];
+            }
+            sql_query("insert into tbl_point_cal set earn_idx='{$row['idx']}', use_idx='{$use_idx}', point='{$expire_point}'");
+            sql_query("update tbl_point_earn set status='0' where idx='{$row['idx']}'");
+            $expire_point_tot += $expire_point;
+        }
+        if ($expire_point_tot) {
+            sql_query("update g5_member set mb_point = mb_point - '{$expire_point_tot}' where mb_no = '{$member['mb_no']}'");
+        }
+    }
+    return true;
+}
+
+
+// 소멸예정 포인트
+function f_get_expire_point($mb_no)
+{
+    $sum = sql_fetch("
+                            SELECT    sum(point) as earn_point, sum(cal_point) as cal_point
+                            FROM      (
+                                             SELECT idx, point
+                                             FROM   tbl_point_earn
+                                             WHERE  status = '1' AND expire_date <= '" . KOI_TIME_YM_EXPIRE . "' AND mb_no = '{$mb_no}') earn
+                            LEFT JOIN
+                                      (
+                                               SELECT   earn_idx, sum(point) AS cal_point
+                                               FROM     tbl_point_cal
+                                               GROUP BY earn_idx) cal
+                            ON        cal.earn_idx=earn.idx");
+    return $sum['earn_point'] - $sum['cal_point'];
+}
+
 ?>
