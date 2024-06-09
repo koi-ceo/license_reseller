@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li>
-                <a href="forms.html" class="has-icon">
+                <a href="<?= KOI_ADMIN_URL ?>/point_list.php" class="has-icon">
                     <span class="icon"><i class="mdi mdi-table"></i></span>
                     <span class="menu-item-label">포인트내역</span>
                 </a>
