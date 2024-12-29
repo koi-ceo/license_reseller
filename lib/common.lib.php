@@ -699,7 +699,7 @@ function get_email_address($email)
 }
 
 // 포인트 적립
-function `f_po`int_earn($mb_no, $point, $contents, $type, $expire_date, $od_id = '', $recommend_mb_no = '')
+function f_point_earn($mb_no, $point, $contents, $type, $expire_date, $od_id = '', $recommend_mb_no = '')
 {
     global $g5;
     $custom_member = sql_fetch("select mb_no, mb_point from {$g5['member_table']} where mb_no = '{$mb_no}'");
